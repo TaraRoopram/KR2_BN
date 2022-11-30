@@ -2,6 +2,7 @@ from typing import Union, List
 from BayesNet import BayesNet
 import BNReasonerUtil as util
 
+
 class BNReasoner:
     def __init__(self, net: Union[str, BayesNet]):
         """
@@ -22,11 +23,11 @@ class BNReasoner:
         """
 
         for e in evidence:
-            e_children = bn.get_children(e)
+            e_children = self.bn.get_children(e)
             for e_child in e_children:
-                bn.del_edge((e, e_child))
+                self.bn.del_edge((e, e_child))
 
-        leaf_nodes = [leaf_node for leaf_node in bn.get_all_variables() if len(bn.get_children(leaf_node)) == 0]
+        leaf_nodes = [leaf_node for leaf_node in self.bn.get_all_variables() if len(self.bn.get_children(leaf_node)) == 0]
         for leaf_node in leaf_nodes:
             if leaf_node not in query_variables and leaf_node not in evidence:
                 self.bn.del_var(leaf_node)
@@ -36,19 +37,3 @@ class BNReasoner:
 
     def draw_structure(self):
         self.bn.draw_structure()
-
-
-
-# edge: We can delete the outgoing edges of every node that is in the evidence 𝑒 without affecting the result of a
-# query 𝑄. node: We can delete any leaf node that doesn’t appear in 𝑄 or 𝑒.
-
-
-bn = BayesNet()
-bn.load_from_bifxml("./testing/dog_problem.BIFXML")
-# bn.draw_structure()
-
-reasoner = BNReasoner(bn)
-# reasoner.prune_network(query_variables=[], evidence=["Rain?"])
-# reasoner.draw_structure()
-
-util.get_all_paths(bn, "dog-out", "hear-bark")
