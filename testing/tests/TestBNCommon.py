@@ -80,3 +80,26 @@ class TestBNCommonL2(unittest.TestCase):
         self.assertEqual(len(descendants), 2)
         self.assertEqual(descendants[0], "X")
         self.assertEqual(descendants[1], "O")
+
+
+class TestBNCommonExample3(unittest.TestCase):
+    def setUp(self):
+        self.bn = BayesNet()
+        self.bn.load_from_bifxml("../test_example_1.BIFXML")
+        self.reasoner = BNReasoner(self.bn)
+
+    def test_ex3_get_all_paths_1(self):
+        start = "F"
+        end = "C"
+        paths = util.get_all_paths(self.bn, start, end, [])
+        self.assertEqual(len(paths), 2)
+        self.assertEqual(paths[0], ["F", "B", "D", "C"])
+        self.assertEqual(paths[1], ["F", "B", "A", "C"])
+
+    def test_ex3_get_all_paths_2(self):
+        start = "F"
+        end = "E"
+        paths = util.get_all_paths(self.bn, start, end, [])
+        self.assertEqual(len(paths), 2)
+        self.assertEqual(paths[0], ["F", "B", "D", "E"])
+        self.assertEqual(paths[1], ["F", "B", "A", "C", "D", "E"])
