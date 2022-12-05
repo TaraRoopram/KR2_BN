@@ -1,32 +1,15 @@
 from typing import List
+import networkx as nx
 
 from BayesNet import BayesNet
 
 
-def get_all_paths(bn: BayesNet, start: str, end: str, path: List[str]):
-    path = path + [start]
-
-    if start == end:
-        return [path]
-
-    if start not in bn.get_all_variables():
-        return []
+def get_all_paths(bn: BayesNet, start: List[str], end: List[str]):
+    undirected = nx.to_undirected(bn.structure)
     paths = []
-
-    children = bn.get_children(start)
-    for node in children:
-        if node not in path:
-            newpaths = get_all_paths(bn, node, end, path)
-            for newpath in newpaths:
-                paths.append(newpath)
-
-    parents = get_parents(bn, start)
-    for node in parents:
-        if node not in path:
-            newpaths = get_all_paths(bn, node, end, path)
-            for newpath in newpaths:
-                paths.append(newpath)
-
+    for s in start:
+        for e in end:
+            paths += list(nx.all_simple_paths(undirected, s, e))
     return paths
 
 
@@ -67,22 +50,32 @@ def split_path_into_triplets(paths: List[str]):
     return all_triplets
 
 
-def is_blocked(bn: BayesNet, x: str, y: str, z: str, givens: List[str]):
+def is_path_blocked(bn: BayesNet, path: List[str], givens: List[str] = []):
+    for triplet in path:
+        x, y, z = triplet
+        if is_blocked(bn, x, y, z, givens):
+            return True
+    return False
+
+
+def is_blocked(bn: BayesNet, x: str, y: str, z: str, givens: List[str] = []):
     triplet_type = get_path_triplet_type(bn, x, y, z)
-    triplet_str = f"{x}, {y}, {z} => {triplet_type}"
     if y not in givens:
         if triplet_type == "sequence" or triplet_type == "fork":
-            print(f"{triplet_str} (unblocked)")
+            return False
         elif triplet_type == "collider":
             if any(desc in givens for desc in get_descendants(bn, y, [])):
-                print(f"{triplet_str} (unblocked)")
+                return False
             else:
-                print(f"{triplet_str} (blocked)")
+                return True
     elif y in givens:
         if triplet_type == "collider":
-            print(f"{triplet_str} (unblocked)")
+            return False
         elif triplet_type == "sequence" or triplet_type == "fork":
-            print(f"{triplet_str} (blocked)")
+            return True
+
+    print("No decision")
+    return None
 
 
 def get_path_triplet_type(bn: BayesNet, x: str, y: str, z: str):
@@ -99,3 +92,31 @@ def get_path_triplet_type(bn: BayesNet, x: str, y: str, z: str):
         return "collider"
 
     return None
+
+
+
+# def get_all_paths(bn: BayesNet, start: str, end: str, path: List[str]):
+#     path = path + [start]
+#
+#     if start == end:
+#         return [path]
+#
+#     if start not in bn.get_all_variables():
+#         return []
+#     paths = []
+#
+#     children = bn.get_children(start)
+#     for node in children:
+#         if node not in path:
+#             newpaths = get_all_paths(bn, node, end, path)
+#             for newpath in newpaths:
+#                 paths.append(newpath)
+#
+#     parents = get_parents(bn, start)
+#     for node in parents:
+#         if node not in path:
+#             newpaths = get_all_paths(bn, node, end, path)
+#             for newpath in newpaths:
+#                 paths.append(newpath)
+#
+#     return paths

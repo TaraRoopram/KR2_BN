@@ -18,31 +18,80 @@ class TestDSeparationExample2(unittest.TestCase):
         self.bn.load_from_bifxml("../lecture_example2.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
-    def test_triplet_types(self):
-        paths = util.get_all_paths(self.bn, "I", "O", [])
-        triplets = util.split_path_into_triplets(list(paths))
-
-        for i, path in enumerate(triplets):
-            print(f"Path {i+1}")
-            for triplet in path:
-                x, y, z = triplet
-                util.is_blocked(self.bn, x, y, z, [])
-            print()
-
 
 class TestDSeparationExample3(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../test_example_1.BIFXML")
+        self.bn.load_from_bifxml("../test_example_3.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
-    def test_ex3_triplet_types_1(self):
-        paths = util.get_all_paths(self.bn, "B", "C", [])
-        triplets = util.split_path_into_triplets(list(paths))
+    def test_ex3_dsep_1(self):
+        x = ["B"]
+        y = ["C"]
+        z = ["E"]
 
-        for i, path in enumerate(triplets):
-            print(f"Path {i+1}")
-            for triplet in path:
-                x, y, z = triplet
-                util.is_blocked(self.bn, x, y, z, ["A", "E"])
-            print()
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, False)
+
+    def test_ex3_dsep_2(self):
+        x = ["B"]
+        y = ["C"]
+        z = []
+
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, False)
+
+
+class TestDSeparationExample4(unittest.TestCase):
+    def setUp(self):
+        self.bn = BayesNet()
+        self.bn.load_from_bifxml("../test_example_4.BIFXML")
+        self.reasoner = BNReasoner(self.bn)
+
+    def test_ex4_dsep_1(self):
+        x = ["B"]
+        y = ["C"]
+        z = ["S"]
+
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, True)
+
+    def test_ex4_dsep_2(self):
+        x = ["X"]
+        y = ["S"]
+        z = ["C", "D"]
+
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, False)
+
+    def test_ex4_dsep_3(self):
+        x = ["X"]
+        y = ["S"]
+        z = ["C"]
+
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, True)
+
+    def test_ex4_dsep_4(self):
+        x = ["X", "S"]
+        y = ["D"]
+        z = ["B", "P"]
+
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, True)
+
+    def test_ex4_dsep_5(self):
+        x = ["A", "S"]
+        y = ["D", "X"]
+        z = ["B", "P"]
+
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, True)
+
+    def test_ex4_dsep_6(self):
+        x = ["T", "C"]
+        y = ["B"]
+        z = ["S", "X"]
+
+        dsep = self.reasoner.d_separation(x, y, z)
+        self.assertEqual(dsep, True)
