@@ -1,5 +1,6 @@
 from typing import List
 import networkx as nx
+import itertools
 
 from BayesNet import BayesNet
 
@@ -92,6 +93,13 @@ def get_path_triplet_type(bn: BayesNet, x: str, y: str, z: str):
         return "collider"
 
     return None
+
+
+def get_combinations(vars):
+    combinations = []
+    for t in itertools.product([True, False], repeat=len(vars)):
+        combinations.append(dict(zip(vars, t)))
+    return combinations
 
 
 

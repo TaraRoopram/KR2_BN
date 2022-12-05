@@ -1,4 +1,7 @@
 from typing import Union, List
+
+import pandas as pd
+
 from BayesNet import BayesNet
 import BNReasonerUtil as util
 
@@ -17,7 +20,7 @@ class BNReasoner:
             self.bn = net
 
     def prune_network(self, query_variables: List[str], evidence: List[str]):
-        """"
+        """
         Given a set of query variables Q and evidence e, node- and edge-prune the Bayesian network s.t. queries of the
         form P(Q|E) can still be correctly calculated. (3.5pts)
         """
@@ -42,6 +45,11 @@ class BNReasoner:
                 return False
 
         return True
+
+    def marginalize(self, factor: pd.DataFrame, x: str):
+        factor = factor.drop(x, axis=1)
+        factor = factor.groupby(factor.columns.values.tolist()[:-1]).sum()
+        return factor
 
     def draw_structure(self):
         self.bn.draw_structure()
