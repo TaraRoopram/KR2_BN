@@ -5,14 +5,14 @@ from BayesNet import BayesNet
 import BNReasonerUtil as util
 
 
-class TestDSeparationL1(unittest.TestCase):
+class TestDSeparationExample1(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
         self.bn.load_from_bifxml("../lecture_example.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
 
-class TestDSeparationL2(unittest.TestCase):
+class TestDSeparationExample2(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
         self.bn.load_from_bifxml("../lecture_example2.BIFXML")

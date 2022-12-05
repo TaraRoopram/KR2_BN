@@ -5,7 +5,7 @@ from BayesNet import BayesNet
 import BNReasonerUtil as util
 
 
-class TestBNCommonL1(unittest.TestCase):
+class TestBNCommonExample1(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
         self.bn.load_from_bifxml("../lecture_example.BIFXML")
@@ -44,7 +44,7 @@ class TestBNCommonL1(unittest.TestCase):
         self.assertEqual(descendants[3], "Slippery Road?")
 
 
-class TestBNCommonL2(unittest.TestCase):
+class TestBNCommonExample2(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
         self.bn.load_from_bifxml("../lecture_example2.BIFXML")
