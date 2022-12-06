@@ -46,7 +46,7 @@ class BNReasoner:
 
         return True
 
-    def marginalize(self, factor: pd.DataFrame, x: str):
+    def marginalize(self, factor: pd.DataFrame, x):
         factor = factor.drop(x, axis=1)
         factor = factor.groupby(factor.columns.values.tolist()[:-1]).sum()
         return factor

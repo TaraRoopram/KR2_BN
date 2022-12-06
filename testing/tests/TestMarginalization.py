@@ -14,21 +14,32 @@ class TestMarginalizationExample1(unittest.TestCase):
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex1_marginalization_1(self):
-        x = "Rain?"
         factors = self.bn.get_cpt("Wet Grass?")
+        x = "Rain?"
 
-        print(f"{x}")
+        print(f"TO SUM OUT: {x}")
         print(f"{factors}")
 
         summed_out = self.reasoner.marginalize(factors, x)
         print(summed_out)
 
     def test_ex1_marginalization_2(self):
-        x = "Sprinkler?"
         factors = self.bn.get_cpt("Wet Grass?")
+        x = "Sprinkler?"
 
-        print(f"{x}")
+        print(f"TO SUM OUT: {x}")
         print(f"{factors}")
 
         summed_out = self.reasoner.marginalize(factors, x)
         print(summed_out)
+
+    def test_ex1_marginalization_3(self):
+        factors = self.bn.get_cpt("Wet Grass?")
+        x = ["Sprinkler?", "Rain?"]
+
+        print(f"TO SUM OUT: {x}")
+        print(f"{factors}")
+
+        summed_out = self.reasoner.marginalize(factors, x)
+        print(summed_out)
+
