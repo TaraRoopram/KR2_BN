@@ -52,6 +52,11 @@ class BNReasoner:
         factor = factor.groupby(factor.columns.values.tolist()[:-1]).sum()
         return factor
 
+    def maxing_out(self, factor: pd.DataFrame, x):
+        factor = factor.drop(x, axis=1)
+        factor = factor.groupby(factor.columns.values.tolist()[:-1]).max()
+        return factor
+
     def draw_structure(self):
         self.bn.draw_structure()
 
@@ -100,3 +105,5 @@ class BNReasoner:
         # }
 
         return pd.DataFrame(result_list, columns=column_names)
+
+
