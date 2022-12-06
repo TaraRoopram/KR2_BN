@@ -35,7 +35,27 @@ class TestMarginalizationExample1(unittest.TestCase):
 
     def test_ex1_marginalization_3(self):
         factors = self.bn.get_cpt("Wet Grass?")
+        x = "Wet Grass?"
+
+        print(f"TO SUM OUT: {x}")
+        print(f"{factors}")
+
+        summed_out = self.reasoner.marginalize(factors, x)
+        print(summed_out)
+
+    def test_ex1_marginalization_4(self):
+        factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?", "Rain?"]
+
+        print(f"TO SUM OUT: {x}")
+        print(f"{factors}")
+
+        summed_out = self.reasoner.marginalize(factors, x)
+        print(summed_out)
+
+    def test_ex1_marginalization_5(self):
+        factors = self.bn.get_cpt("Wet Grass?")
+        x = ["Sprinkler?", "Rain?", "Wet Grass?"]
 
         print(f"TO SUM OUT: {x}")
         print(f"{factors}")
