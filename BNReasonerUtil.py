@@ -111,8 +111,6 @@ def get_number_of_new_interactions(bn: BayesNet, var_to_delete: str):
         in1_interactions = list(nx.neighbors(interaction_graph, in1))
         print(f"{in1} {in1_interactions} {interactions}")
 
-
-
     # for i_1 in interactions:
     #     children = nx.neighbors(interaction_graph, i_1)
     #     for i_2 in interactions:
@@ -145,3 +143,11 @@ def get_number_of_new_interactions(bn: BayesNet, var_to_delete: str):
 #                 paths.append(newpath)
 #
 #     return paths
+
+def create_instantiation(bool_list, result_vars):
+    result_dict = {}
+    #['D', 'E', 'B', 'C']
+    # instanciation = {"B": True, "E": True, "C": True, "D": True}
+    for idx, var in enumerate(result_vars):
+        result_dict[var] = bool_list[idx]
+    return result_dict
