@@ -104,18 +104,21 @@ def get_combinations(vars):
 
 def get_number_of_new_interactions(bn: BayesNet, var_to_delete: str):
     interaction_graph = bn.get_interaction_graph()
-    interactions = list(nx.neighbors(interaction_graph, var_to_delete))
+    children = list(nx.neighbors(interaction_graph, var_to_delete))
+    new_edges = []
 
-    for in1 in interactions:
-        children = list(nx.neighbors(interaction_graph, in1))
-        in1_interactions = list(nx.neighbors(interaction_graph, in1))
-        print(f"{in1} {in1_interactions} {interactions}")
+    # print(f"{var_to_delete}: {children}")
+    for child in children:
+        product = list(itertools.product([child], children))
+        for node1, node2 in product:
+            if node1 != node2 \
+                    and node2 not in list(nx.neighbors(interaction_graph, child)) \
+                    and (node2, node1) not in new_edges:
+                # print(f"{child}: {(node1, node2)}")
+                new_edges.append((node1, node2))
 
-    # for i_1 in interactions:
-    #     children = nx.neighbors(interaction_graph, i_1)
-    #     for i_2 in interactions:
-    #         if i_2 not in children:
-    #             print(f"{i_1} <---> {i_2}")
+    print(new_edges)
+    return new_edges
 
 
 # def get_all_paths(bn: BayesNet, start: str, end: str, path: List[str]):

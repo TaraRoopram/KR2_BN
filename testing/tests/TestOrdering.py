@@ -13,11 +13,6 @@ class TestOrderingExample1(unittest.TestCase):
         self.bn.load_from_bifxml("../lecture_example.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
-    # def test_ex1_interaction_graph(self):
-    #     interaction_graph = self.bn.get_interaction_graph()
-    #     nx.draw(interaction_graph, with_labels=True, node_size=3000)
-    #     plt.show()
-
     def test_ex3_number_of_new_interactions(self):
-        var_to_delete = "Rain?"
+        var_to_delete = "Sprinkler?"
         util.get_number_of_new_interactions(self.bn, var_to_delete)
