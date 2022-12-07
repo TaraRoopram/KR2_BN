@@ -154,3 +154,10 @@ def create_instantiation(bool_list, result_vars):
     for idx, var in enumerate(result_vars):
         result_dict[var] = bool_list[idx]
     return result_dict
+
+
+def bool_combinator(n):
+    if n < 1:
+        return [[]]
+    subtable = bool_combinator(n-1)
+    return [row + [v] for row in subtable for v in [True, False]]
