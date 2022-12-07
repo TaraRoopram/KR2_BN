@@ -84,26 +84,19 @@ class BNReasoner:
                 instanciation_series, factor_1)['p'].values[0]
             p_factor_2 = self.bn.get_compatible_instantiations_table(
                 instanciation_series, factor_2)['p'].values[0]
-            print(instanciation)
-            print(p_factor_1)
-            print(p_factor_2)
             multiplied_p = p_factor_1 * p_factor_2
-            print(multiplied_p)
-            print("---------")
             instanciation['p'] = multiplied_p
             result_list.append(instanciation)
-            print(instanciation)
-            # Append results as row to result_factor
-        print(result_list)
-        columns = sorted(column_names)
-        # print(columns)
 
-        # data = {
-        #     "C": [True, False, ...],
-        #     "D": [True, False],
-        #     "p": [0, 0.1]
-        # }
+        columns = sorted(column_names)
 
         return pd.DataFrame(result_list, columns=column_names)
 
 
+reasoner = BNReasoner("testing/test_example_3.BIFXML")
+
+factor_1 = reasoner.bn.get_cpt("D")
+factor_2 = reasoner.bn.get_cpt("E")
+
+result = reasoner.factor_multiplication(factor_1, factor_2)
+print(result)
