@@ -14,6 +14,10 @@ def get_all_paths(bn: BayesNet, start: List[str], end: List[str]):
     return paths
 
 
+def get_degree_int_graph(graph, node):
+    return len(list(graph.neighbors(node)))
+
+
 def get_parents(bn: BayesNet, _var: str):
     parents = []
     variables = bn.get_all_variables()
@@ -102,23 +106,28 @@ def get_combinations(vars):
     return combinations
 
 
-def get_number_of_new_interactions(bn: BayesNet, var_to_delete: str):
-    interaction_graph = bn.get_interaction_graph()
-    interactions = list(nx.neighbors(interaction_graph, var_to_delete))
+def get_new_interactions(int_graph, var_to_delete: str):
+    children = list(nx.neighbors(int_graph, var_to_delete))
+    new_edges = []
 
-    for in1 in interactions:
-        children = list(nx.neighbors(interaction_graph, in1))
-        in1_interactions = list(nx.neighbors(interaction_graph, in1))
-        print(f"{in1} {in1_interactions} {interactions}")
+    for child in children:
+        product = list(itertools.product([child], children))
+        for node1, node2 in product:
+            if node1 != node2 \
+                    and node2 not in list(nx.neighbors(int_graph, child)) \
+                    and (node2, node1) not in new_edges:
+                new_edges.append((node1, node2))
+
+    return new_edges
 
 
+def del_var_int_graph(int_graph, var_to_delete: str):
+    new_edges = get_new_interactions(int_graph, var_to_delete)
+    int_graph.remove_node(var_to_delete)
+    for edge in new_edges:
+        int_graph.add_edge(edge[0], edge[1])
 
-    # for i_1 in interactions:
-    #     children = nx.neighbors(interaction_graph, i_1)
-    #     for i_2 in interactions:
-    #         if i_2 not in children:
-    #             print(f"{i_1} <---> {i_2}")
-
+    return int_graph
 
 # def get_all_paths(bn: BayesNet, start: str, end: str, path: List[str]):
 #     path = path + [start]
@@ -145,3 +154,18 @@ def get_number_of_new_interactions(bn: BayesNet, var_to_delete: str):
 #                 paths.append(newpath)
 #
 #     return paths
+
+def create_instantiation(bool_list, result_vars):
+    result_dict = {}
+    #['D', 'E', 'B', 'C']
+    # instanciation = {"B": True, "E": True, "C": True, "D": True}
+    for idx, var in enumerate(result_vars):
+        result_dict[var] = bool_list[idx]
+    return result_dict
+
+
+def bool_combinator(n):
+    if n < 1:
+        return [[]]
+    subtable = bool_combinator(n-1)
+    return [row + [v] for row in subtable for v in [True, False]]
