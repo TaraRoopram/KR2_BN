@@ -53,7 +53,7 @@ class BNReasoner:
         if len(columns) == 0:
             factor = factor.sum()
         else:
-            factor = factor.groupby(columns).sum()
+            factor = factor.groupby(columns).sum().reset_index()
         return factor
 
     def maxing_out(self, factor: pd.DataFrame, x):

@@ -1,6 +1,8 @@
 import unittest
 
 import pandas as pd
+from pandas.testing import assert_frame_equal
+
 
 from BNReasoner import BNReasoner
 from BayesNet import BayesNet
@@ -17,49 +19,61 @@ class TestMarginalizationExample1(unittest.TestCase):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Rain?"]
 
-        print(f"TO SUM OUT: {x}")
-        print(f"{factors}")
+        correct_summed_out = pd.DataFrame({
+            "Sprinkler?": [False, False, True, True],
+            "Wet Grass?": [False, True, False, True],
+            "p": [1.2, 0.8, 0.10 + 0.05, 1.85]
+        })
 
         summed_out = self.reasoner.marginalize(factors, x)
-        print(summed_out)
+        self.assertTrue(correct_summed_out.equals(summed_out))
 
     def test_ex1_marginalization_2(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?"]
 
-        print(f"TO SUM OUT: {x}")
-        print(f"{factors}")
+        correct_summed_out = pd.DataFrame({
+            "Rain?": [False, False, True, True],
+            "Wet Grass?": [False, True, False, True],
+            "p": [1.1, 0.9, 0.25, 1.75]
+        })
 
         summed_out = self.reasoner.marginalize(factors, x)
-        print(summed_out)
+        self.assertTrue(correct_summed_out.equals(summed_out))
 
     def test_ex1_marginalization_3(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Wet Grass?"]
 
-        print(f"TO SUM OUT: {x}")
-        print(f"{factors}")
+        correct_summed_out = pd.DataFrame({
+            "Sprinkler?": [False, False, True, True],
+            "Rain?": [False, True, False, True],
+            "p": [1., 1., 1., 1.]
+        })
 
         summed_out = self.reasoner.marginalize(factors, x)
-        print(summed_out)
+        self.assertTrue(correct_summed_out.equals(summed_out))
 
     def test_ex1_marginalization_4(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?", "Rain?"]
 
-        print(f"TO SUM OUT: {x}")
-        print(f"{factors}")
+        correct_summed_out = pd.DataFrame({
+            "Wet Grass?": [False, True],
+            "p": [1.35, 2.65]
+        })
 
         summed_out = self.reasoner.marginalize(factors, x)
-        print(summed_out)
+        self.assertTrue(correct_summed_out.equals(summed_out))
 
     def test_ex1_marginalization_5(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?", "Rain?", "Wet Grass?"]
 
-        print(f"TO SUM OUT: {x}")
-        print(f"{factors}")
+        correct_summed_out = pd.Series({
+            "p": 4.
+        })
 
         summed_out = self.reasoner.marginalize(factors, x)
-        print(summed_out)
+        self.assertTrue(summed_out.equals(correct_summed_out))
 
