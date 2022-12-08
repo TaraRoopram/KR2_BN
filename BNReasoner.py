@@ -98,42 +98,44 @@ class BNReasoner:
 
         return pd.DataFrame(result_list, columns=column_names)
 
-    def compute_ordering_min_deg(self):
+    def compute_ordering_min_deg(self, x: List[str]):
         int_graph = self.bn.get_interaction_graph()
-        nodes = list(int_graph.nodes)
-        min_deg = util.get_degree_int_graph(int_graph, nodes[0])
         ordering = []
 
-        while len(nodes) > 0:
-            node_to_delete = nodes[0]
-            for node in nodes:
+        while len(x) > 0:
+            node_to_delete = x[0]
+            min_deg = util.get_degree_int_graph(int_graph, node_to_delete)
+
+            for node in x:
                 degree = util.get_degree_int_graph(int_graph, node)
                 if degree < min_deg:
                     min_deg = degree
                     node_to_delete = node
 
+            print(node_to_delete)
             int_graph = util.del_var_int_graph(int_graph, node_to_delete)
-            nodes = list(int_graph.nodes)
+            x.remove(node_to_delete)
             ordering.append(node_to_delete)
 
         return ordering
 
-    def compute_ordering_min_fill(self):
+    def compute_ordering_min_fill(self, x: List[str]):
         int_graph = self.bn.get_interaction_graph()
-        nodes = list(int_graph.nodes)
-        min_fill = len(util.get_new_interactions(int_graph, nodes[0]))
         ordering = []
 
-        while len(nodes) > 0:
-            node_to_delete = nodes[0]
-            for node in nodes:
+        while len(x) > 0:
+            node_to_delete = x[0]
+            min_fill = len(util.get_new_interactions(int_graph, node_to_delete))
+
+            for node in x:
                 fill = len(util.get_new_interactions(int_graph, node))
                 if fill < min_fill:
                     min_fill = fill
                     node_to_delete = node
 
+            print(node_to_delete)
             int_graph = util.del_var_int_graph(int_graph, node_to_delete)
-            nodes = list(int_graph.nodes)
+            x.remove(node_to_delete)
             ordering.append(node_to_delete)
 
         return ordering
