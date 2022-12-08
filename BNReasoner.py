@@ -57,9 +57,6 @@ class BNReasoner:
         factor = factor.groupby(factor.columns.values.tolist()[:-1]).max()
         return factor
 
-    def draw_structure(self):
-        self.bn.draw_structure()
-
     def factor_multiplication(self, factor_1, factor_2):
         # Setup factors and
         print(factor_1)
@@ -92,11 +89,45 @@ class BNReasoner:
 
         return pd.DataFrame(result_list, columns=column_names)
 
+    def compute_ordering_min_deg(self):
+        int_graph = self.bn.get_interaction_graph()
+        nodes = list(int_graph.nodes)
+        min_deg = util.get_degree_int_graph(int_graph, nodes[0])
+        ordering = []
 
-reasoner = BNReasoner("testing/test_example_3.BIFXML")
+        while len(nodes) > 0:
+            node_to_delete = nodes[0]
+            for node in nodes:
+                degree = util.get_degree_int_graph(int_graph, node)
+                if degree < min_deg:
+                    min_deg = degree
+                    node_to_delete = node
 
-factor_1 = reasoner.bn.get_cpt("D")
-factor_2 = reasoner.bn.get_cpt("E")
+            int_graph = util.del_var_int_graph(int_graph, node_to_delete)
+            nodes = list(int_graph.nodes)
+            ordering.append(node_to_delete)
 
-result = reasoner.factor_multiplication(factor_1, factor_2)
-print(result)
+        return ordering
+
+    def compute_ordering_min_fill(self):
+        int_graph = self.bn.get_interaction_graph()
+        nodes = list(int_graph.nodes)
+        min_fill = len(util.get_new_interactions(int_graph, nodes[0]))
+        ordering = []
+
+        while len(nodes) > 0:
+            node_to_delete = nodes[0]
+            for node in nodes:
+                fill = len(util.get_new_interactions(int_graph, node))
+                if fill < min_fill:
+                    min_fill = fill
+                    node_to_delete = node
+
+            int_graph = util.del_var_int_graph(int_graph, node_to_delete)
+            nodes = list(int_graph.nodes)
+            ordering.append(node_to_delete)
+
+        return ordering
+
+    def draw_structure(self):
+        self.bn.draw_structure()

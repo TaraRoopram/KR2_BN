@@ -14,6 +14,10 @@ def get_all_paths(bn: BayesNet, start: List[str], end: List[str]):
     return paths
 
 
+def get_degree_int_graph(graph, node):
+    return len(list(graph.neighbors(node)))
+
+
 def get_parents(bn: BayesNet, _var: str):
     parents = []
     variables = bn.get_all_variables()
@@ -102,24 +106,28 @@ def get_combinations(vars):
     return combinations
 
 
-def get_number_of_new_interactions(bn: BayesNet, var_to_delete: str):
-    interaction_graph = bn.get_interaction_graph()
-    children = list(nx.neighbors(interaction_graph, var_to_delete))
+def get_new_interactions(int_graph, var_to_delete: str):
+    children = list(nx.neighbors(int_graph, var_to_delete))
     new_edges = []
 
-    # print(f"{var_to_delete}: {children}")
     for child in children:
         product = list(itertools.product([child], children))
         for node1, node2 in product:
             if node1 != node2 \
-                    and node2 not in list(nx.neighbors(interaction_graph, child)) \
+                    and node2 not in list(nx.neighbors(int_graph, child)) \
                     and (node2, node1) not in new_edges:
-                # print(f"{child}: {(node1, node2)}")
                 new_edges.append((node1, node2))
 
-    print(new_edges)
     return new_edges
 
+
+def del_var_int_graph(int_graph, var_to_delete: str):
+    new_edges = get_new_interactions(int_graph, var_to_delete)
+    int_graph.remove_node(var_to_delete)
+    for edge in new_edges:
+        int_graph.add_edge(edge[0], edge[1])
+
+    return int_graph
 
 # def get_all_paths(bn: BayesNet, start: str, end: str, path: List[str]):
 #     path = path + [start]
