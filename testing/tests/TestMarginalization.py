@@ -15,7 +15,7 @@ class TestMarginalizationExample1(unittest.TestCase):
 
     def test_ex1_marginalization_1(self):
         factors = self.bn.get_cpt("Wet Grass?")
-        x = "Rain?"
+        x = ["Rain?"]
 
         print(f"TO SUM OUT: {x}")
         print(f"{factors}")
@@ -25,7 +25,7 @@ class TestMarginalizationExample1(unittest.TestCase):
 
     def test_ex1_marginalization_2(self):
         factors = self.bn.get_cpt("Wet Grass?")
-        x = "Sprinkler?"
+        x = ["Sprinkler?"]
 
         print(f"TO SUM OUT: {x}")
         print(f"{factors}")
@@ -35,7 +35,7 @@ class TestMarginalizationExample1(unittest.TestCase):
 
     def test_ex1_marginalization_3(self):
         factors = self.bn.get_cpt("Wet Grass?")
-        x = "Wet Grass?"
+        x = ["Wet Grass?"]
 
         print(f"TO SUM OUT: {x}")
         print(f"{factors}")

@@ -43,12 +43,16 @@ class BNReasoner:
             is_path_blocked = util.is_path_blocked(self.bn, path, z)
             if not is_path_blocked:
                 return False
-
         return True
 
-    def marginalize(self, factor: pd.DataFrame, x):
+    def marginalize(self, factor: pd.DataFrame, x: List[str]):
         factor = factor.drop(x, axis=1)
-        factor = factor.groupby(factor.columns.values.tolist()[:-1]).sum()
+        columns = factor.columns.values.tolist()[:-1]
+
+        if len(columns) == 0:
+            factor = factor.sum()
+        else:
+            factor = factor.groupby(columns).sum()
         return factor
 
     def draw_structure(self):
