@@ -68,6 +68,8 @@ class BNReasoner:
 
     def factor_multiplication(self, factor_1, factor_2):
         # Setup factors and
+        print(factor_1)
+        print(factor_2)
         f1_vars = list(factor_1.keys())
         f2_vars = list(factor_2.keys())
 
@@ -166,6 +168,8 @@ class BNReasoner:
         return pd.DataFrame(result_list, columns=column_names)
 
     def n_f_multiplication(self, factors):
+        # print("factors: ")
+        # print(factors)
         while factors:
             if len(factors) == 1:
                 return factors[0]
@@ -181,6 +185,8 @@ class BNReasoner:
         # Here should be the algorithm ordering the variables(now just getting all, -2)
         variable_order = self.compute_ordering_min_deg(target_var)
         # Elimination as defined in variable_order
+        print(target_var)
+        print(variable_order)
         for var in variable_order:
             factors_to_remove = []
             all_factors_copy = list(all_factors_list)
@@ -189,7 +195,9 @@ class BNReasoner:
                 current_factor = all_factors_copy[i]
                 curr_f_vars = current_factor.columns.values.tolist()
 
+                print(f"{var} -> {curr_f_vars}")
                 if var in curr_f_vars:
+                    # print(f"current factor: {i} -> {current_factor}")
                     factors_to_remove.append(current_factor)
                     all_factors_list = [
                         x for x in all_factors_list if not x.equals(current_factor)]
