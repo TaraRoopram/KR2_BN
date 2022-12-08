@@ -56,9 +56,14 @@ class BNReasoner:
             factor = factor.groupby(columns).sum().reset_index()
         return factor
 
-    def maxing_out(self, factor: pd.DataFrame, x):
+    def maxing_out(self, factor: pd.DataFrame, x: List[str]):
         factor = factor.drop(x, axis=1)
-        factor = factor.groupby(factor.columns.values.tolist()[:-1]).max()
+        columns = factor.columns.values.tolist()[:-1]
+
+        if len(columns) == 0:
+            factor = factor.max()
+        else:
+            factor = factor.groupby(columns).max().reset_index()
         return factor
 
     def factor_multiplication(self, factor_1, factor_2):

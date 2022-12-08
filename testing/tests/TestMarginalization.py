@@ -75,5 +75,5 @@ class TestMarginalizationExample1(unittest.TestCase):
         })
 
         summed_out = self.reasoner.marginalize(factors, x)
-        self.assertTrue(summed_out.equals(correct_summed_out))
+        self.assertTrue(summed_out.equals(correct_summed_out)) #--> is dit niet: self.assertTrue(correct_summed_out.equals(summed_out))
 

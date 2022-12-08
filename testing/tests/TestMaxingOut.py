@@ -1,6 +1,8 @@
 import unittest
 
 import pandas as pd
+from pandas.testing import assert_frame_equal
+
 
 from BNReasoner import BNReasoner
 from BayesNet import BayesNet
@@ -15,51 +17,63 @@ class TestMaxingOutExample1(unittest.TestCase):
 
     def test_ex1_maxingout_1(self):
         factors = self.bn.get_cpt("Wet Grass?")
-        x = "Rain?"
+        x = ["Rain?"]
 
-        print(f"TO MAX OUT: {x}")
-        print(f"{factors}")
+        correct_maxed_out = pd.DataFrame({
+            "Sprinkler?": [False, False, True, True],
+            "Wet Grass?": [False, True, False, True],
+            "p": [1.2, 0.8, 0.10 + 0.05, 1.85]
+        })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
-        print(maxed_out)
+        self.assertTrue(correct_maxed_out.equals(maxed_out))
 
     def test_ex1_maxingout_2(self):
         factors = self.bn.get_cpt("Wet Grass?")
-        x = "Sprinkler?"
+        x = ["Sprinkler?"]
 
-        print(f"TO MAX OUT: {x}")
-        print(f"{factors}")
+        correct_maxed_out = pd.DataFrame({
+            "Rain?": [False, False, True, True],
+            "Wet Grass?": [False, True, False, True],
+            "p": [1.1, 0.9, 0.25, 1.75]
+        })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
-        print(maxed_out)
+        self.assertTrue(correct_maxed_out.equals(maxed_out))
 
     def test_ex1_maxingout_3(self):
         factors = self.bn.get_cpt("Wet Grass?")
-        x = "Wet Grass?"
+        x = ["Wet Grass?"]
 
-        print(f"TO MAX OUT: {x}")
-        print(f"{factors}")
+        correct_maxed_out = pd.DataFrame({
+            "Sprinkler?": [False, False, True, True],
+            "Rain?": [False, True, False, True],
+            "p": [1., 1., 1., 1.]
+        })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
-        print(maxed_out)
+        self.assertTrue(correct_maxed_out.equals(maxed_out))
 
     def test_ex1_maxingout_4(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?", "Rain?"]
 
-        print(f"TO MAX OUT: {x}")
-        print(f"{factors}")
+        correct_maxed_out = pd.DataFrame({
+            "Wet Grass?": [False, True],
+            "p": [1.35, 2.65]
+        })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
-        print(maxed_out)
+        self.assertTrue(correct_maxed_out.equals(maxed_out))
 
     def test_ex1_maxingout_5(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?", "Rain?", "Wet Grass?"]
 
-        print(f"TO MAX OUT: {x}")
-        print(f"{factors}")
+        correct_maxed_out = pd.Series({
+            "p": 4.
+        })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
-        print(maxed_out)
+        self.assertTrue(maxed_out.equals(correct_maxed_out))
 
