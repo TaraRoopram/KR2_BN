@@ -36,7 +36,7 @@ class BNReasoner:
             if leaf_node not in query_variables and leaf_node not in evidence:
                 self.bn.del_var(leaf_node)
 
-    def d_separation(self, x: List[str], y: List[str], z: List[str]):
+    def is_d_separated(self, x: List[str], y: List[str], z: List[str]):
         paths = util.get_all_paths(self.bn, x, y)
         triplets = util.split_path_into_triplets(list(paths))
 
@@ -45,6 +45,9 @@ class BNReasoner:
             if not is_path_blocked:
                 return False
         return True
+
+    def is_independent(self, x: List[str], y: List[str], z: List[str]):
+        return self.is_d_separated(x, y, z)
 
     def marginalize(self, factor: pd.DataFrame, x: List[str]):
         factor = factor.drop(x, axis=1)
