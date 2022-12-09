@@ -45,7 +45,7 @@ class BNReasoner:
             if not is_path_blocked:
                 return False
         return True
-    
+
     def is_independent(self, x: List[str], y: List[str], z: List[str]):
         return self.is_d_separated(x, y, z)
 
@@ -212,6 +212,7 @@ class BNReasoner:
 
 reasoner = BNReasoner("testing/test_example_6.BIFXML")
 
-
+print(reasoner.bn.get_all_cpts())
+print(reasoner.bn.get_all_variables())
 result = reasoner.variable_elimination(['A', 'B'])
 print(result)
