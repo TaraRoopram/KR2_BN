@@ -30,7 +30,7 @@ class TestDSeparationExample3(unittest.TestCase):
         y = ["C"]
         z = ["E"]
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, False)
 
     def test_ex3_dsep_2(self):
@@ -38,7 +38,7 @@ class TestDSeparationExample3(unittest.TestCase):
         y = ["C"]
         z = []
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, False)
 
 
@@ -53,7 +53,7 @@ class TestDSeparationExample4(unittest.TestCase):
         y = ["C"]
         z = ["S"]
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
     def test_ex4_dsep_2(self):
@@ -61,7 +61,7 @@ class TestDSeparationExample4(unittest.TestCase):
         y = ["S"]
         z = ["C", "D"]
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, False)
 
     def test_ex4_dsep_3(self):
@@ -69,7 +69,7 @@ class TestDSeparationExample4(unittest.TestCase):
         y = ["S"]
         z = ["C"]
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
     def test_ex4_dsep_4(self):
@@ -77,7 +77,7 @@ class TestDSeparationExample4(unittest.TestCase):
         y = ["D"]
         z = ["B", "P"]
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
     def test_ex4_dsep_5(self):
@@ -85,7 +85,7 @@ class TestDSeparationExample4(unittest.TestCase):
         y = ["D", "X"]
         z = ["B", "P"]
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
     def test_ex4_dsep_6(self):
@@ -93,5 +93,5 @@ class TestDSeparationExample4(unittest.TestCase):
         y = ["B"]
         z = ["S", "X"]
 
-        dsep = self.reasoner.d_separation(x, y, z)
+        dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)

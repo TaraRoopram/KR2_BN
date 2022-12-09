@@ -56,14 +56,28 @@ class TestOrderingExample1(unittest.TestCase):
         self.assertTrue(var_to_delete not in new_int_graph.nodes)
         self.assertTrue(are_edges_in_undirected_graph(new_int_graph, new_edges))
 
-    def test_ex1_min_deg_ordering(self):
-        ordering = self.reasoner.compute_ordering_min_deg()
-        correct_order = ["Slippery Road?", "Winter?", "Sprinkler?", "Rain?", "Wet Grass?"]
+    def test_ex1_min_deg_ordering_1(self):
+        x = ["Sprinkler?", "Slippery Road?", "Winter?"]
+        ordering = self.reasoner.compute_ordering_min_deg(x)
+        correct_order = ["Slippery Road?", "Winter?", "Sprinkler?"]
+        self.assertEqual(correct_order, ordering)
+
+    def test_ex1_min_deg_ordering_2(self):
+        x = ["Sprinkler?", "Rain?", "Slippery Road?", "Winter?"]
+        ordering = self.reasoner.compute_ordering_min_deg(x)
+        correct_order = ["Slippery Road?", "Winter?", "Sprinkler?", "Rain?"]
+        self.assertEqual(correct_order, ordering)
+
+    def test_ex1_min_fill_ordering_1(self):
+        x = ["Sprinkler?", "Slippery Road?", "Winter?"]
+        ordering = self.reasoner.compute_ordering_min_fill(x)
+        correct_order = ["Slippery Road?", "Winter?", "Sprinkler?"]
         self.assertEqual(ordering, correct_order)
 
-    def test_ex1_min_fill_ordering(self):
-        ordering = self.reasoner.compute_ordering_min_fill()
-        correct_order = ["Winter?", "Sprinkler?", "Rain?", "Wet Grass?", "Slippery Road?"]
+    def test_ex1_min_fill_ordering_2(self):
+        x = ["Sprinkler?", "Rain?", "Slippery Road?", "Winter?"]
+        ordering = self.reasoner.compute_ordering_min_fill(x)
+        correct_order = ["Slippery Road?", "Winter?", "Sprinkler?", "Rain?"]
         self.assertEqual(ordering, correct_order)
 
 
@@ -114,14 +128,22 @@ class TestOrderingExample2(unittest.TestCase):
         self.assertTrue(var_to_delete not in new_int_graph.nodes)
         self.assertTrue(are_edges_in_undirected_graph(new_int_graph, new_edges))
 
-    def test_ex2_min_deg_ordering(self):
-        ordering = self.reasoner.compute_ordering_min_deg()
-        correct_order = ["I", "J", "Y", "X", "O"]
+    def test_ex2_min_deg_ordering_1(self):
+        x = ["J", "I"]
+        ordering = self.reasoner.compute_ordering_min_deg(x)
+        correct_order = ["I", "J"]
         self.assertEqual(ordering, correct_order)
 
-    def test_ex2_min_fill_ordering(self):
-        ordering = self.reasoner.compute_ordering_min_fill()
-        correct_order = ["I", "J", "Y", "X", "O"]
+    def test_ex2_min_deg_ordering_2(self):
+        x = ["J", "X", "Y"]
+        ordering = self.reasoner.compute_ordering_min_deg(x)
+        correct_order = ["J", "X", "Y"]
+        self.assertEqual(ordering, correct_order)
+
+    def test_ex2_min_fill_ordering_1(self):
+        x = ["J", "X", "Y"]
+        ordering = self.reasoner.compute_ordering_min_fill(x)
+        correct_order = ["J", "X", "Y"]
         self.assertEqual(ordering, correct_order)
 
 
