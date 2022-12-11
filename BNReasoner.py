@@ -210,9 +210,9 @@ class BNReasoner:
         return final_factor
 
 
-reasoner = BNReasoner("testing/test_example_6.BIFXML")
+reasoner = BNReasoner("testing/use_case.BIFXML")
 
 print(reasoner.bn.get_all_cpts())
 print(reasoner.bn.get_all_variables())
-result = reasoner.variable_elimination(['A', 'B'])
+result = reasoner.variable_elimination(['Stress'])
 print(result)
