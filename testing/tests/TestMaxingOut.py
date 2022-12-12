@@ -22,7 +22,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         correct_maxed_out = pd.DataFrame({
             "Sprinkler?": [False, False, True, True],
             "Wet Grass?": [False, True, False, True],
-            "p": [1.2, 0.8, 0.10 + 0.05, 1.85]
+            "p": [1.0, 0.8, 0.1, 0.95]
         })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
@@ -35,7 +35,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         correct_maxed_out = pd.DataFrame({
             "Rain?": [False, False, True, True],
             "Wet Grass?": [False, True, False, True],
-            "p": [1.1, 0.9, 0.25, 1.75]
+            "p": [1.0, 0.9, 0.2, 0.95]
         })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
@@ -48,7 +48,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         correct_maxed_out = pd.DataFrame({
             "Sprinkler?": [False, False, True, True],
             "Rain?": [False, True, False, True],
-            "p": [1., 1., 1., 1.]
+            "p": [1., 0.8, 0.9, 0.95]
         })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
@@ -60,7 +60,7 @@ class TestMaxingOutExample1(unittest.TestCase):
 
         correct_maxed_out = pd.DataFrame({
             "Wet Grass?": [False, True],
-            "p": [1.35, 2.65]
+            "p": [1, 0.95]
         })
 
         maxed_out = self.reasoner.maxing_out(factors, x)
@@ -71,7 +71,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         x = ["Sprinkler?", "Rain?", "Wet Grass?"]
 
         correct_maxed_out = pd.Series({
-            "p": 4.
+            "p": 1.
         })
 
         maxed_out = self.reasoner.maxing_out(factors, x)

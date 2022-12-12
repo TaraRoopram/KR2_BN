@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!--Author: Tara Roopram
+    Bayesian network in XMLBIF v0.3 (BayesNet Interchange Format)
+ -->
+
+<!-- DTD for the XMLBIF 0.3 format -->
+<!DOCTYPE BIF [
+	<!ELEMENT BIF ( NETWORK )*>
+	      <!ATTLIST BIF VERSION CDATA #REQUIRED>
+	<!ELEMENT NETWORK ( NAME, ( PROPERTY | VARIABLE | DEFINITION )* )>
+	<!ELEMENT NAME (#PCDATA)>
+	<!ELEMENT VARIABLE ( NAME, ( OUTCOME |  PROPERTY )* ) >
+	      <!ATTLIST VARIABLE TYPE (nature|decision|utility) "nature">
+	<!ELEMENT OUTCOME (#PCDATA)>
+	<!ELEMENT DEFINITION ( FOR | GIVEN | TABLE | PROPERTY )* >
+	<!ELEMENT FOR (#PCDATA)>
+	<!ELEMENT GIVEN (#PCDATA)>
+	<!ELEMENT TABLE (#PCDATA)>
+	<!ELEMENT PROPERTY (#PCDATA)>
+]>
+
+<BIF VERSION="0.3">
+<NETWORK>
+    <NAME>Use Case</NAME>
+
+    <!-- Variables-->
+    <VARIABLE TYPE="nature">
+        <NAME>Being Bullied</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Overeating</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Diabetes</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Stress</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Cardiovascular Disease</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+     <VARIABLE TYPE="nature">
+        <NAME>Peer Pressure</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Smoking</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Genetics</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Lung Disease</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+        <NAME>Lack of Energy</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+
+    <!-- PCTs -->
+    <DEFINITION>
+        <FOR>Being Bullied</FOR>
+        <TABLE>0.3 0.7</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Peer Pressure</FOR>
+        <TABLE>0.4 0.6</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Genetics</FOR>
+        <TABLE>0.2 0.8</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>Overeating</FOR>
+        <GIVEN>Being Bullied</GIVEN>
+        <GIVEN>Stress</GIVEN>
+        <TABLE>0.25 0.75 0.4 0.6 0.7 0.3 0.8 0.2</TABLE> <!-- Order? Being Bullied, Stress, Overeating-->
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Diabetes</FOR>
+        <GIVEN>Overeating</GIVEN>
+        <GIVEN>Smoking</GIVEN>
+        <TABLE>0.3 0.7 0.55 0.45 0.2 0.8 0.4 0.6</TABLE> <!-- Order? Overeating, Smoking, Diabetes-->
+    </DEFINITION>
+     <DEFINITION>
+      <FOR>Cardiovascular Disease</FOR>
+        <GIVEN>Diabetes</GIVEN>
+        <GIVEN>Smoking</GIVEN>
+        <TABLE>0.4 0.6 0.7 0.3 0.2 0.8 0.5 0.5</TABLE> <!-- Order? Diabetes, Smoking, Cardiovascular Disease-->
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Smoking</FOR>
+        <GIVEN>Stress</GIVEN>
+        <GIVEN>Peer Pressure</GIVEN>
+        <TABLE>0.8 0.2 0.1 0.9 0.7 0.3 0.6 0.4</TABLE> <!-- Order? Stress, Peer Pressure, Smoking-->
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Lung Disease</FOR>
+        <GIVEN>Smoking</GIVEN>
+        <GIVEN>Genetics</GIVEN>
+        <TABLE>0.7 0.3 0.6 0.4 0.25 0.75 0.9 0.1</TABLE> <!-- Order? Smoking, Genetics, Lung Disease-->
+    </DEFINITION>
+     <DEFINITION>
+      <FOR>Lack of Energy</FOR>
+        <GIVEN>Cardiovascular Disease</GIVEN>
+        <GIVEN>Lung Disease</GIVEN>
+        <TABLE>0.25 0.75 0.4 0.6 0.15 0.85 0.3 0.7</TABLE> <!-- Order? Cardiovascular Disease, Lung Disease, Lack of Energy-->
+    </DEFINITION>
+     <DEFINITION>
+      <FOR>Stress</FOR>
+        <GIVEN>Being Bullied</GIVEN>
+        <GIVEN>Peer Pressure</GIVEN>
+        <TABLE>0.6 0.4 0.5 0.5 0.7 0.3 0.2 0.8</TABLE> <!-- Order? Being Bullied, Peer Pressure, Stress-->
+    </DEFINITION>
+
+</NETWORK>
+</BIF>
