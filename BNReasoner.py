@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import Union, List, Dict
 
 import pandas as pd
 
@@ -113,7 +113,7 @@ class BNReasoner:
                     min_deg = degree
                     node_to_delete = node
 
-            print(node_to_delete)
+            # print(node_to_delete)
             int_graph = util.del_var_int_graph(int_graph, node_to_delete)
             x.remove(node_to_delete)
             ordering.append(node_to_delete)
@@ -135,7 +135,7 @@ class BNReasoner:
                     min_fill = fill
                     node_to_delete = node
 
-            print(node_to_delete)
+            # print(node_to_delete)
             int_graph = util.del_var_int_graph(int_graph, node_to_delete)
             x.remove(node_to_delete)
             ordering.append(node_to_delete)
@@ -178,9 +178,8 @@ class BNReasoner:
 
         return "Input was an empty list"
 
-    def variable_elimination(self, target_var):
-        all_factors = self.bn.get_all_cpts()
-        all_factors_list = [i for i in all_factors.values()]
+    def variable_elimination(self, factors, target_var):
+        all_factors_list = [i for i in factors.values()]
         # Here should be the algorithm ordering the variables(now just getting all, -2)
         variable_order = self.compute_ordering_min_deg(target_var)
         # Elimination as defined in variable_order
@@ -209,10 +208,15 @@ class BNReasoner:
 
         return final_factor
 
+    def marginal_distribution(self, query_vars: List[str], evidence: Dict[str, bool]):
+        factors = self.bn.get_all_cpts()
+        for var_name, df in factors.items():
+            factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
 
-reasoner = BNReasoner("testing/use_case.BIFXML")
+        ordering = list(set(self.bn.get_all_variables()) - set(query_vars))
+        var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
 
-print(reasoner.bn.get_all_cpts())
-print(reasoner.bn.get_all_variables())
-result = reasoner.variable_elimination(['Stress'])
-print(result)
+        summed_out = self.marginalize(var_elim, query_vars).values[0]
+        var_elim["p"] = var_elim["p"].div(summed_out).round(2)
+
+        return var_elim
