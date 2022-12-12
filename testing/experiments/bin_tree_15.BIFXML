@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!--Author: Koen Kraaijveld
+    Bayesian network in XMLBIF v0.3 (BayesNet Interchange Format)
+ -->
+
+<!-- DTD for the XMLBIF 0.3 format -->
+<!DOCTYPE BIF [
+	<!ELEMENT BIF ( NETWORK )*>
+	      <!ATTLIST BIF VERSION CDATA #REQUIRED>
+	<!ELEMENT NETWORK ( NAME, ( PROPERTY | VARIABLE | DEFINITION )* )>
+	<!ELEMENT NAME (#PCDATA)>
+	<!ELEMENT VARIABLE ( NAME, ( OUTCOME |  PROPERTY )* ) >
+	      <!ATTLIST VARIABLE TYPE (nature|decision|utility) "node">
+	<!ELEMENT OUTCOME (#PCDATA)>
+	<!ELEMENT DEFINITION ( FOR | GIVEN | TABLE | PROPERTY )* >
+	<!ELEMENT FOR (#PCDATA)>
+	<!ELEMENT GIVEN (#PCDATA)>
+	<!ELEMENT TABLE (#PCDATA)>
+	<!ELEMENT PROPERTY (#PCDATA)>
+]>
+
+<BIF VERSION="0.3">
+<NETWORK>
+    <NAME>Lecture Example</NAME>
+
+    <!-- Variables-->
+    <VARIABLE TYPE="node">
+        <NAME>Root</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>A1</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>A2</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B1</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B2</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B3</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B4</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C1</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C2</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C3</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C4</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C5</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C6</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C7</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C8</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+
+    <!-- PCTs -->
+    <DEFINITION>
+        <FOR>Root</FOR>
+        <TABLE>0.5 0.5</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>A1</FOR>
+        <GIVEN>Root</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>A2</FOR>
+        <GIVEN>Root</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B1</FOR>
+        <GIVEN>A1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B2</FOR>
+        <GIVEN>A1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B3</FOR>
+        <GIVEN>A2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B4</FOR>
+        <GIVEN>A2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C1</FOR>
+        <GIVEN>B1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C2</FOR>
+        <GIVEN>B1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C3</FOR>
+        <GIVEN>B2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C4</FOR>
+        <GIVEN>B2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C5</FOR>
+        <GIVEN>B3</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C6</FOR>
+        <GIVEN>B3</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C7</FOR>
+        <GIVEN>B4</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C8</FOR>
+        <GIVEN>B4</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+</NETWORK>
+</BIF>

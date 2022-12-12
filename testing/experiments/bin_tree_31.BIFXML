@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!--Author: Koen Kraaijveld
+    Bayesian network in XMLBIF v0.3 (BayesNet Interchange Format)
+ -->
+
+<!-- DTD for the XMLBIF 0.3 format -->
+<!DOCTYPE BIF [
+	<!ELEMENT BIF ( NETWORK )*>
+	      <!ATTLIST BIF VERSION CDATA #REQUIRED>
+	<!ELEMENT NETWORK ( NAME, ( PROPERTY | VARIABLE | DEFINITION )* )>
+	<!ELEMENT NAME (#PCDATA)>
+	<!ELEMENT VARIABLE ( NAME, ( OUTCOME |  PROPERTY )* ) >
+	      <!ATTLIST VARIABLE TYPE (nature|decision|utility) "node">
+	<!ELEMENT OUTCOME (#PCDATA)>
+	<!ELEMENT DEFINITION ( FOR | GIVEN | TABLE | PROPERTY )* >
+	<!ELEMENT FOR (#PCDATA)>
+	<!ELEMENT GIVEN (#PCDATA)>
+	<!ELEMENT TABLE (#PCDATA)>
+	<!ELEMENT PROPERTY (#PCDATA)>
+]>
+
+<BIF VERSION="0.3">
+<NETWORK>
+    <NAME>Lecture Example</NAME>
+
+    <!-- Variables-->
+    <VARIABLE TYPE="node">
+        <NAME>Root</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>A1</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>A2</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B1</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B2</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B3</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>B4</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C1</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C2</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C3</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C4</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C5</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C6</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C7</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>C8</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D1</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D2</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D3</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D4</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D5</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D6</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D7</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D8</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D9</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D10</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D11</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D12</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D13</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D14</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D15</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+    <VARIABLE TYPE="node">
+        <NAME>D16</NAME>
+        <OUTCOME>True</OUTCOME>
+        <OUTCOME>False</OUTCOME>
+    </VARIABLE>
+
+    <!-- PCTs -->
+    <DEFINITION>
+        <FOR>Root</FOR>
+        <TABLE>0.5 0.5</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>A1</FOR>
+        <GIVEN>Root</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>A2</FOR>
+        <GIVEN>Root</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B1</FOR>
+        <GIVEN>A1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B2</FOR>
+        <GIVEN>A1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B3</FOR>
+        <GIVEN>A2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>B4</FOR>
+        <GIVEN>A2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C1</FOR>
+        <GIVEN>B1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C2</FOR>
+        <GIVEN>B1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C3</FOR>
+        <GIVEN>B2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C4</FOR>
+        <GIVEN>B2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C5</FOR>
+        <GIVEN>B3</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C6</FOR>
+        <GIVEN>B3</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C7</FOR>
+        <GIVEN>B4</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>C8</FOR>
+        <GIVEN>B4</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D1</FOR>
+        <GIVEN>C1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D2</FOR>
+        <GIVEN>C1</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D3</FOR>
+        <GIVEN>C2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D4</FOR>
+        <GIVEN>C2</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D5</FOR>
+        <GIVEN>C3</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D6</FOR>
+        <GIVEN>C3</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D7</FOR>
+        <GIVEN>C4</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D8</FOR>
+        <GIVEN>C4</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D9</FOR>
+        <GIVEN>C5</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D10</FOR>
+        <GIVEN>C5</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D11</FOR>
+        <GIVEN>C6</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D12</FOR>
+        <GIVEN>C6</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D13</FOR>
+        <GIVEN>C7</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D14</FOR>
+        <GIVEN>C7</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D15</FOR>
+        <GIVEN>C8</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+        <FOR>D16</FOR>
+        <GIVEN>C8</GIVEN>
+        <TABLE>0.25 0.25 0.25 0.25</TABLE>
+    </DEFINITION>
+</NETWORK>
+</BIF>
