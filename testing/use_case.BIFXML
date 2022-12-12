@@ -79,57 +79,57 @@
     <!-- PCTs -->
     <DEFINITION>
         <FOR>Being Bullied</FOR>
-        <TABLE>0.3 0.7</TABLE>
+        <TABLE>0.8 0.2</TABLE>
     </DEFINITION>
     <DEFINITION>
         <FOR>Peer Pressure</FOR>
-        <TABLE>0.4 0.6</TABLE>
+        <TABLE>0.85 0.15</TABLE>
     </DEFINITION>
     <DEFINITION>
         <FOR>Genetics</FOR>
-        <TABLE>0.2 0.8</TABLE>
+        <TABLE>0.5 0.5</TABLE>
     </DEFINITION>
     <DEFINITION>
         <FOR>Overeating</FOR>
         <GIVEN>Being Bullied</GIVEN>
         <GIVEN>Stress</GIVEN>
-        <TABLE>0.25 0.75 0.4 0.6 0.7 0.3 0.8 0.2</TABLE> <!-- Order? Being Bullied, Stress, Overeating-->
+        <TABLE>0.25 0.75 0.4 0.6 0.3 0.7 0.9 0.1</TABLE> <!-- Order? Being Bullied, Stress, Overeating-->
     </DEFINITION>
     <DEFINITION>
       <FOR>Diabetes</FOR>
         <GIVEN>Overeating</GIVEN>
         <GIVEN>Smoking</GIVEN>
-        <TABLE>0.3 0.7 0.55 0.45 0.2 0.8 0.4 0.6</TABLE> <!-- Order? Overeating, Smoking, Diabetes-->
+        <TABLE>0.05 0.95 0.55 0.45 0.2 0.8 0.1 0.9</TABLE> <!-- Order? Overeating, Smoking, Diabetes-->
     </DEFINITION>
      <DEFINITION>
       <FOR>Cardiovascular Disease</FOR>
         <GIVEN>Diabetes</GIVEN>
         <GIVEN>Smoking</GIVEN>
-        <TABLE>0.4 0.6 0.7 0.3 0.2 0.8 0.5 0.5</TABLE> <!-- Order? Diabetes, Smoking, Cardiovascular Disease-->
+        <TABLE>0.15 0.85 0.4 0.6 0.2 0.8 0.01 0.99</TABLE> <!-- Order? Diabetes, Smoking, Cardiovascular Disease-->
     </DEFINITION>
     <DEFINITION>
       <FOR>Smoking</FOR>
         <GIVEN>Stress</GIVEN>
         <GIVEN>Peer Pressure</GIVEN>
-        <TABLE>0.8 0.2 0.1 0.9 0.7 0.3 0.6 0.4</TABLE> <!-- Order? Stress, Peer Pressure, Smoking-->
+        <TABLE>0.2 0.8 0.5 0.5 0.7 0.3 0.4 0.6</TABLE> <!-- Order? Stress, Peer Pressure, Smoking-->
     </DEFINITION>
     <DEFINITION>
       <FOR>Lung Disease</FOR>
         <GIVEN>Smoking</GIVEN>
         <GIVEN>Genetics</GIVEN>
-        <TABLE>0.7 0.3 0.6 0.4 0.25 0.75 0.9 0.1</TABLE> <!-- Order? Smoking, Genetics, Lung Disease-->
+        <TABLE>0.3 0.7 0.45 0.55 0.6 0.4 0.5 0.5</TABLE> <!-- Order? Smoking, Genetics, Lung Disease-->
     </DEFINITION>
      <DEFINITION>
       <FOR>Lack of Energy</FOR>
         <GIVEN>Cardiovascular Disease</GIVEN>
         <GIVEN>Lung Disease</GIVEN>
-        <TABLE>0.25 0.75 0.4 0.6 0.15 0.85 0.3 0.7</TABLE> <!-- Order? Cardiovascular Disease, Lung Disease, Lack of Energy-->
+        <TABLE>0.3 0.7 0.45 0.55 0.4 0.6 0.35 0.65</TABLE> <!-- Order? Cardiovascular Disease, Lung Disease, Lack of Energy-->
     </DEFINITION>
      <DEFINITION>
       <FOR>Stress</FOR>
         <GIVEN>Being Bullied</GIVEN>
         <GIVEN>Peer Pressure</GIVEN>
-        <TABLE>0.6 0.4 0.5 0.5 0.7 0.3 0.2 0.8</TABLE> <!-- Order? Being Bullied, Peer Pressure, Stress-->
+        <TABLE>0.2 0.8 0.5 0.5 0.4 0.6 0.15 0.85</TABLE> <!-- Order? Being Bullied, Peer Pressure, Stress-->
     </DEFINITION>
 
 </NETWORK>
