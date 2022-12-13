@@ -229,3 +229,43 @@ class BNReasoner:
         var_elim["p"] = var_elim["p"].div(summed_out).round(2)
 
         return var_elim
+
+    def MPE(self, evidence):
+        factors = self.bn.get_all_cpts()
+        # for var_name, df in factors.items():
+        #     factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
+        all_factors_list = [i for i in factors.values()]
+
+        joint = self.n_f_multiplication(all_factors_list)
+
+        all_variables = self.bn.get_all_variables()
+        result = self.maxing_out(joint, all_variables)
+        print(result)
+        # ordering = self.compute_ordering_min_deg(all_variables)
+        # var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
+        # print(var_elim)
+        return result
+
+    def MAP(self, query_vars: List[str], evidence: Dict[str, bool]):
+        marginalized_distribution = self.marginal_distribution(
+            query_vars, evidence)
+        print(marginalized_distribution)
+        print(query_vars)
+        # maxed_out_extended = self.maxing_out(
+        #     marginalized_distribution, query_vars)
+        # print('result')
+        # print(maxed_out_extended)
+        # max_inst = maxed_out_extended.query('p == p.max()')
+        # print(max_inst)
+        # return max_inst
+
+
+reasoner = BNReasoner("testing/lecture_example2.BIFXML")
+
+
+q_vars = ['I', 'J']
+evid = {"O": True}
+# evid = {"I": True, "O": False}
+
+result = reasoner.MAP(q_vars, evid)
+# result = reasoner.MPE(evid)
