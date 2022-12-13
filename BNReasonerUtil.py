@@ -129,6 +129,15 @@ def del_var_int_graph(int_graph, var_to_delete: str):
 
     return int_graph
 
+
+def get_factors_from_var(factors, var_name):
+    filtered = []
+    for factor_name, df in factors.items():
+        columns = df.columns.values.tolist()[:-1]
+        if var_name in columns and factor_name != var_name:
+            filtered.append({factor_name: df})
+    return filtered
+
 # def get_all_paths(bn: BayesNet, start: str, end: str, path: List[str]):
 #     path = path + [start]
 #
@@ -157,7 +166,7 @@ def del_var_int_graph(int_graph, var_to_delete: str):
 
 def create_instantiation(bool_list, result_vars):
     result_dict = {}
-    #['D', 'E', 'B', 'C']
+    # ['D', 'E', 'B', 'C']
     # instanciation = {"B": True, "E": True, "C": True, "D": True}
     for idx, var in enumerate(result_vars):
         result_dict[var] = bool_list[idx]
@@ -167,5 +176,5 @@ def create_instantiation(bool_list, result_vars):
 def bool_combinator(n):
     if n < 1:
         return [[]]
-    subtable = bool_combinator(n-1)
+    subtable = bool_combinator(n - 1)
     return [row + [v] for row in subtable for v in [True, False]]

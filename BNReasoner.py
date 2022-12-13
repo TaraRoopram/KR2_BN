@@ -19,16 +19,25 @@ class BNReasoner:
         else:
             self.bn = net
 
-    def prune_network(self, query_variables: List[str], evidence: List[str]):
+    def prune_network(self, query_variables: List[str], evidence: Dict[str, bool]):
         """
         Given a set of query variables Q and evidence e, node- and edge-prune the Bayesian network s.t. queries of the
         form P(Q|E) can still be correctly calculated. (3.5pts)
         """
 
-        for e in evidence:
-            e_children = self.bn.get_children(e)
-            for e_child in e_children:
-                self.bn.del_edge((e, e_child))
+        cpts = self.bn.get_all_cpts()
+        for var_name, var_bool in evidence.items():
+            var_children = self.bn.get_children(var_name)
+            for child in var_children:
+                self.bn.del_edge((var_name, child))
+
+            related_factors = util.get_factors_from_var(cpts, var_name)
+            for factor in related_factors:
+                for name, df in factor.items():
+                    instantiation = pd.Series({var_name: var_bool})
+                    reduced = self.bn.reduce_factor(instantiation, df)
+                    summed_out = self.marginalize(reduced, [var_name])
+                    self.bn.update_cpt(name, summed_out)
 
         leaf_nodes = [leaf_node for leaf_node in self.bn.get_all_variables() if len(
             self.bn.get_children(leaf_node)) == 0]
@@ -95,9 +104,10 @@ class BNReasoner:
             instanciation['p'] = multiplied_p
             result_list.append(instanciation)
 
-        columns = sorted(column_names)
-
-        return pd.DataFrame(result_list, columns=column_names)
+        column_names = sorted(column_names)
+        df = pd.DataFrame(result_list, columns=column_names)
+        df = df.reindex(column_names, axis=1)
+        return df.sort_values(by=column_names[0], axis=0)
 
     def compute_ordering_min_deg(self, x: List[str]):
         int_graph = self.bn.get_interaction_graph()
@@ -166,6 +176,7 @@ class BNReasoner:
             multiplied_p = p_table_1 * p_table_2
             instanciation['p'] = multiplied_p
             result_list.append(instanciation)
+
         return pd.DataFrame(result_list, columns=column_names)
 
     def n_f_multiplication(self, factors):
@@ -178,10 +189,8 @@ class BNReasoner:
 
         return "Input was an empty list"
 
-    def variable_elimination(self, factors, target_var):
+    def variable_elimination(self, factors, variable_order):
         all_factors_list = [i for i in factors.values()]
-        # Here should be the algorithm ordering the variables(now just getting all, -2)
-        variable_order = self.compute_ordering_min_deg(target_var)
         # Elimination as defined in variable_order
         for var in variable_order:
             factors_to_remove = []
