@@ -260,12 +260,12 @@ class BNReasoner:
         # return max_inst
 
 
-reasoner = BNReasoner("testing/lecture_example2.BIFXML")
-
-
-q_vars = ['I', 'J']
-evid = {"O": True}
-# evid = {"I": True, "O": False}
-
-result = reasoner.MAP(q_vars, evid)
-# result = reasoner.MPE(evid)
+# reasoner = BNReasoner("testing/lecture_example2.BIFXML")
+#
+#
+# q_vars = ['I', 'J']
+# evid = {"O": True}
+# # evid = {"I": True, "O": False}
+#
+# result = reasoner.MAP(q_vars, evid)
+# # result = reasoner.MPE(evid)
