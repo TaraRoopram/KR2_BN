@@ -8,7 +8,7 @@ from BayesNet import BayesNet
 import BNReasonerUtil as util
 
 ROUND_NUM = 5
-ITERATIONS = 5
+ITERATIONS = 100
 
 
 class ExperimentOrderingBinaryTree3(unittest.TestCase):
@@ -19,23 +19,15 @@ class ExperimentOrderingBinaryTree3(unittest.TestCase):
         self.bn_size = 3
 
     def test_min_deg_bin_tree_3(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_deg(self.reasoner, factors, variables)
-
+        runtime = perform_min_deg(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_deg", bn_size=self.bn_size, runtime=runtime)
 
     def test_min_fill_bin_tree_3(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_fill(self.reasoner, factors, variables)
-
+        runtime = perform_min_fill(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_fill", bn_size=self.bn_size, runtime=runtime)
 
     def test_100_min_deg_bin_tree_3(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_deg(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_deg(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_deg",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -44,9 +36,7 @@ class ExperimentOrderingBinaryTree3(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
     def test_100_min_fill_bin_tree_3(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_fill(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_fill(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_fill",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -63,23 +53,15 @@ class ExperimentOrderingBinaryTree7(unittest.TestCase):
         self.bn_size = 7
 
     def test_min_deg_bin_tree_7(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_deg(self.reasoner, factors, variables)
-
+        runtime = perform_min_deg(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_deg", bn_size=self.bn_size, runtime=runtime)
 
     def test_min_fill_bin_tree_7(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_fill(self.reasoner, factors, variables)
-
+        runtime = perform_min_fill(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_fill", bn_size=self.bn_size, runtime=runtime)
 
     def test_100_min_deg_bin_tree_7(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_deg(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_deg(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_deg",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -88,9 +70,7 @@ class ExperimentOrderingBinaryTree7(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
     def test_100_min_fill_bin_tree_7(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_fill(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_fill(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_fill",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -107,23 +87,15 @@ class ExperimentOrderingBinaryTree15(unittest.TestCase):
         self.bn_size = 15
 
     def test_min_deg_bin_tree_15(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_deg(self.reasoner, factors, variables)
-
+        runtime = perform_min_deg(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_deg", bn_size=self.bn_size, runtime=runtime)
 
     def test_min_fill_bin_tree_15(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_fill(self.reasoner, factors, variables)
-
+        runtime = perform_min_fill(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_fill", bn_size=self.bn_size, runtime=runtime)
 
     def test_100_min_deg_bin_tree_15(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_deg(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_deg(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_deg",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -132,9 +104,7 @@ class ExperimentOrderingBinaryTree15(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
     def test_100_min_fill_bin_tree_15(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_fill(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_fill(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_fill",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -151,23 +121,15 @@ class ExperimentOrderingBinaryTree31(unittest.TestCase):
         self.bn_size = 31
 
     def test_min_deg_bin_tree_31(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_deg(self.reasoner, factors, variables)
-
+        runtime = perform_min_deg(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_deg", bn_size=self.bn_size, runtime=runtime)
 
     def test_min_fill_bin_tree_31(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        runtime = perform_min_fill(self.reasoner, factors, variables)
-
+        runtime = perform_min_fill(self.bn, self.reasoner)
         print_experiment_results(name="ordering", type="min_fill", bn_size=self.bn_size, runtime=runtime)
 
     def test_100_min_deg_bin_tree_31(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_deg(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_deg(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_deg",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -176,9 +138,7 @@ class ExperimentOrderingBinaryTree31(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
     def test_100_min_fill_bin_tree_31(self):
-        factors = self.bn.get_all_cpts()
-        variables = self.bn.get_all_variables()
-        all_runtime = perform_100_min_fill(self.reasoner, factors, variables)
+        all_runtime = perform_100_min_fill(self.bn, self.reasoner)
 
         print_experiment_results(name="ordering", type="min_fill",
                                  bn_size=self.bn_size, runtime=all_runtime)
@@ -187,37 +147,45 @@ class ExperimentOrderingBinaryTree31(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
 
-def perform_min_fill(reasoner: BNReasoner, factors, variables):
+def perform_min_fill(bn: BayesNet, reasoner: BNReasoner):
+    factors = bn.get_all_cpts()
+    variables = bn.get_all_variables()
+
     start = timeit.default_timer()
     min_fill = reasoner.compute_ordering_min_fill(variables)
+    print(min_fill)
     var_elim = reasoner.variable_elimination(factors, min_fill)
     stop = timeit.default_timer()
     return round(stop - start, ROUND_NUM)
 
 
-def perform_min_deg(reasoner: BNReasoner, factors, variables):
+def perform_min_deg(bn: BayesNet, reasoner: BNReasoner):
+    factors = bn.get_all_cpts()
+    variables = bn.get_all_variables()
+
     start = timeit.default_timer()
-    min_fill = reasoner.compute_ordering_min_deg(variables)
-    var_elim = reasoner.variable_elimination(factors, min_fill)
+    min_deg = reasoner.compute_ordering_min_deg(variables)
+    print(min_deg)
+    var_elim = reasoner.variable_elimination(factors, min_deg)
     stop = timeit.default_timer()
     return round(stop - start, ROUND_NUM)
 
 
-def perform_100_min_deg(reasoner: BNReasoner, factors, variables):
+def perform_100_min_deg(bn: BayesNet, reasoner: BNReasoner):
     all_runtime = []
     for i in range(ITERATIONS):
         print(i)
-        runtime = perform_min_deg(reasoner, factors, variables)
+        runtime = perform_min_deg(bn, reasoner)
         all_runtime.append(runtime)
 
     return all_runtime
 
 
-def perform_100_min_fill(reasoner: BNReasoner, factors, variables):
+def perform_100_min_fill(bn: BayesNet, reasoner: BNReasoner):
     all_runtime = []
     for i in range(ITERATIONS):
         print(i)
-        runtime = perform_min_fill(reasoner, factors, variables)
+        runtime = perform_min_fill(bn, reasoner)
         all_runtime.append(runtime)
 
     return all_runtime

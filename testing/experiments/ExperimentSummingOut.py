@@ -29,11 +29,7 @@ class ExperimentSummingOutBinaryTree3(unittest.TestCase):
                                  bn_size=self.bn_size, runtime=runtime)
 
     def test_100_naive_summing_out_bin_tree_3(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_naive_sum_out(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_naive_{ITERATIONS}.json",
@@ -41,11 +37,7 @@ class ExperimentSummingOutBinaryTree3(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
     def test_100_var_elim_bin_tree_3(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_var_elim(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_var_elim(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_var_elim_{ITERATIONS}.json",
@@ -71,11 +63,7 @@ class ExperimentSummingOutBinaryTree7(unittest.TestCase):
                                  bn_size=self.bn_size, runtime=runtime)
 
     def test_100_naive_summing_out_bin_tree_7(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_naive_sum_out(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_naive_{ITERATIONS}.json",
@@ -83,11 +71,7 @@ class ExperimentSummingOutBinaryTree7(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
     def test_100_var_elim_bin_tree_7(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_var_elim(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_var_elim(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_var_elim_{ITERATIONS}.json",
@@ -114,12 +98,9 @@ class ExperimentSummingOutBinaryTree15(unittest.TestCase):
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=runtime)
 
+    @unittest.skip
     def test_100_naive_summing_out_bin_tree_15(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_naive_sum_out(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_naive_{ITERATIONS}.json",
@@ -127,11 +108,7 @@ class ExperimentSummingOutBinaryTree15(unittest.TestCase):
                                 bn_size=self.bn_size, runtime=all_runtime)
 
     def test_100_var_elim_bin_tree_15(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_var_elim(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_var_elim(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_var_elim_{ITERATIONS}.json",
@@ -158,24 +135,18 @@ class ExperimentSummingOutBinaryTree31(unittest.TestCase):
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=runtime)
 
+    @unittest.skip
     def test_100_naive_summing_out_bin_tree_31(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_naive_sum_out(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_naive_{ITERATIONS}.json",
                                 name="summing out", type="naive",
                                 bn_size=self.bn_size, runtime=all_runtime)
 
+    @unittest.skip
     def test_100_var_elim_bin_tree_31(self):
-        all_runtime = []
-        for i in range(ITERATIONS):
-            runtime = perform_var_elim(self.bn, self.reasoner)
-            all_runtime.append(runtime)
-
+        all_runtime = perform_100_var_elim(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=all_runtime)
         save_experiment_results(f"bin_tree_{self.bn_size}_var_elim_{ITERATIONS}.json",
@@ -225,3 +196,23 @@ def perform_var_elim(bn: BayesNet, reasoner: BNReasoner):
     stop = timeit.default_timer()
 
     return round(stop - start, ROUND_NUM)
+
+
+def perform_100_naive_sum_out(bn: BayesNet, reasoner: BNReasoner):
+    all_runtime = []
+    for i in range(ITERATIONS):
+        print(i)
+        runtime = perform_naive_sum_out(bn, reasoner)
+        all_runtime.append(runtime)
+
+    return all_runtime
+
+
+def perform_100_var_elim(bn: BayesNet, reasoner: BNReasoner):
+    all_runtime = []
+    for i in range(ITERATIONS):
+        print(i)
+        runtime = perform_var_elim(bn, reasoner)
+        all_runtime.append(runtime)
+
+    return all_runtime
