@@ -86,19 +86,17 @@ class ExperimentSummingOutBinaryTree15(unittest.TestCase):
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 15
 
-    @unittest.skip
     def test_naive_summing_out_bin_tree_15(self):
         runtime = perform_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
                                  bn_size=self.bn_size, runtime=runtime)
 
-    @unittest.skip
     def test_var_elim_bin_tree_15(self):
         runtime = perform_var_elim(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=runtime)
 
-    @unittest.skip
+    @unittest.skip("Infeasible runtime")
     def test_100_naive_summing_out_bin_tree_15(self):
         all_runtime = perform_100_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
@@ -123,19 +121,17 @@ class ExperimentSummingOutBinaryTree31(unittest.TestCase):
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 31
 
-    @unittest.skip
     def test_naive_summing_out_bin_tree_31(self):
         runtime = perform_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
                                  bn_size=self.bn_size, runtime=runtime)
 
-    @unittest.skip
     def test_var_elim_bin_tree_31(self):
         runtime = perform_var_elim(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="var_elim",
                                  bn_size=self.bn_size, runtime=runtime)
 
-    @unittest.skip
+    @unittest.skip("Infeasible runtime")
     def test_100_naive_summing_out_bin_tree_31(self):
         all_runtime = perform_100_naive_sum_out(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="naive",
@@ -144,7 +140,7 @@ class ExperimentSummingOutBinaryTree31(unittest.TestCase):
                                 name="summing out", type="naive",
                                 bn_size=self.bn_size, runtime=all_runtime)
 
-    @unittest.skip
+    @unittest.skip("Infeasible runtime")
     def test_100_var_elim_bin_tree_31(self):
         all_runtime = perform_100_var_elim(self.bn, self.reasoner)
         print_experiment_results(name="summing out", type="var_elim",
@@ -201,9 +197,9 @@ def perform_var_elim(bn: BayesNet, reasoner: BNReasoner):
 def perform_100_naive_sum_out(bn: BayesNet, reasoner: BNReasoner):
     all_runtime = []
     for i in range(ITERATIONS):
-        print(i)
         runtime = perform_naive_sum_out(bn, reasoner)
         all_runtime.append(runtime)
+        print(f"Run {i} => {runtime}s")
 
     return all_runtime
 
@@ -211,8 +207,8 @@ def perform_100_naive_sum_out(bn: BayesNet, reasoner: BNReasoner):
 def perform_100_var_elim(bn: BayesNet, reasoner: BNReasoner):
     all_runtime = []
     for i in range(ITERATIONS):
-        print(i)
         runtime = perform_var_elim(bn, reasoner)
         all_runtime.append(runtime)
+        print(f"Run {i} => {runtime}s")
 
     return all_runtime
