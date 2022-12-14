@@ -238,7 +238,7 @@ class BNReasoner:
         var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
 
         summed_out = self.marginalize(var_elim, query_vars).values[0]
-        var_elim["p"] = var_elim["p"].div(summed_out).round(2)
+        var_elim["p"] = var_elim["p"].div(summed_out)
 
         return var_elim
 
