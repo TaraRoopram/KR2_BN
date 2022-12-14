@@ -182,7 +182,7 @@ def bool_combinator(n):
     return [row + [v] for row in subtable for v in [True, False]]
 
 
-def get_extende_factor(self, factor, original_factor, maxing_vars):
+def get_extended_factor(self, factor, original_factor, maxing_vars):
     if isinstance(factor, pd.Series):
         store = {}
         for var in maxing_vars:

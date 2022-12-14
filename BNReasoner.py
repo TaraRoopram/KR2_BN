@@ -87,7 +87,7 @@ class BNReasoner:
         else:
             factor = factor.groupby(columns).max().reset_index()
         if extended:
-            factor = util.get_extende_factor(self, factor, original_factor, x)
+            factor = util.get_extended_factor(self, factor, original_factor, x)
         return factor
 
     def factor_multiplication(self, factor_1, factor_2):
@@ -270,24 +270,3 @@ class BNReasoner:
         # max_inst = maxed_out_extended.query('p == p.max()')
         # print(max_inst)
         # return max_inst
-
-
-reasoner = BNReasoner("testing/lecture_example2.BIFXML")
-
-
-q_vars = ['I', 'J']
-evid = {"O": True}
-# evid = {"I": True, "O": False}
-
-# result = reasoner.MAP(q_vars, evid)
-result = reasoner.MPE(evid)
-print(result)
-
-# reasoner = BNReasoner("testing/lecture_example.BIFXML")
-# factor = reasoner.bn.get_cpt("Wet Grass?")
-
-# x = ["Wet Grass?", "Rain?", "Sprinkler?"]
-
-# result = reasoner.maxing_out(factor, x, True)
-# print(factor)
-# print(result)
