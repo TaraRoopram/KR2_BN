@@ -5,6 +5,7 @@ from BayesNet import BayesNet
 import BNReasonerUtil as util
 
 
+@unittest.skip
 class TestBNCommonExample1(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
@@ -44,6 +45,7 @@ class TestBNCommonExample1(unittest.TestCase):
         self.assertEqual(descendants[3], "Slippery Road?")
 
 
+@unittest.skip
 class TestBNCommonExample2(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
@@ -82,6 +84,7 @@ class TestBNCommonExample2(unittest.TestCase):
         self.assertEqual(descendants[1], "O")
 
 
+@unittest.skip
 class TestBNCommonExample3(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
