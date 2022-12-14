@@ -39,11 +39,19 @@ class BNReasoner:
                     summed_out = self.marginalize(reduced, [var_name])
                     self.bn.update_cpt(name, summed_out)
 
-        leaf_nodes = [leaf_node for leaf_node in self.bn.get_all_variables() if len(
-            self.bn.get_children(leaf_node)) == 0]
-        for leaf_node in leaf_nodes:
-            if leaf_node not in query_variables and leaf_node not in evidence:
-                self.bn.del_var(leaf_node)
+        del_nodes = [node for node in self.bn.get_all_variables()
+                     if len(self.bn.get_children(node)) == 0 and
+                     node not in query_variables and
+                     node not in evidence.keys()]
+
+        while len(del_nodes) > 0:
+            for node in del_nodes:
+                self.bn.del_var(node)
+                del_nodes.remove(node)
+            del_nodes = [node for node in self.bn.get_all_variables()
+                         if len(self.bn.get_children(node)) == 0 and
+                         node not in query_variables and
+                         node not in evidence.keys()]
 
     def is_d_separated(self, x: List[str], y: List[str], z: List[str]):
         paths = util.get_all_paths(self.bn, x, y)
