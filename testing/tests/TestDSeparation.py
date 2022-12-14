@@ -28,13 +28,13 @@ class TestDSeparationExample3(unittest.TestCase):
         self.assertEqual(dsep, False)
 
 
-class TestDSeparationExample4(unittest.TestCase):
+class TestDSeparationLectureExample(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
         self.bn.load_from_bifxml("../test_example_4.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
-    def test_ex4_dsep_1(self):
+    def test_lecture_example_dsep_1(self):
         x = ["B"]
         y = ["C"]
         z = ["S"]
@@ -42,7 +42,7 @@ class TestDSeparationExample4(unittest.TestCase):
         dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
-    def test_ex4_dsep_2(self):
+    def test_lecture_example_dsep_2(self):
         x = ["X"]
         y = ["S"]
         z = ["C", "D"]
@@ -50,7 +50,7 @@ class TestDSeparationExample4(unittest.TestCase):
         dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, False)
 
-    def test_ex4_dsep_3(self):
+    def test_lecture_example_dsep_3(self):
         x = ["X"]
         y = ["S"]
         z = ["C"]
@@ -58,7 +58,7 @@ class TestDSeparationExample4(unittest.TestCase):
         dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
-    def test_ex4_dsep_4(self):
+    def test_lecture_example_dsep_4(self):
         x = ["X", "S"]
         y = ["D"]
         z = ["B", "P"]
@@ -66,7 +66,7 @@ class TestDSeparationExample4(unittest.TestCase):
         dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
-    def test_ex4_dsep_5(self):
+    def test_lecture_example_dsep_5(self):
         x = ["A", "S"]
         y = ["D", "X"]
         z = ["B", "P"]
@@ -74,7 +74,7 @@ class TestDSeparationExample4(unittest.TestCase):
         dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
 
-    def test_ex4_dsep_6(self):
+    def test_lecture_example_dsep_6(self):
         x = ["T", "C"]
         y = ["B"]
         z = ["S", "X"]
