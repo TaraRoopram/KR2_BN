@@ -1,0 +1,62 @@
+[
+   {
+      "name": "summing out",
+      "type": "naive",
+      "bn_size": 3,
+      "runtime_stats": {
+         "mean": 0.03693,
+         "std": 0.00237,
+         "max": 0.04355,
+         "min": 0.03255,
+         "range": 0.011
+      }
+   },
+   {
+      "name": "summing out",
+      "type": "var_elim",
+      "bn_size": 3,
+      "runtime_stats": {
+         "mean": 0.03697,
+         "std": 0.00176,
+         "max": 0.04149,
+         "min": 0.03391,
+         "range": 0.00758
+      }
+   },
+   {
+      "name": "summing out",
+      "type": "naive",
+      "bn_size": 7,
+      "runtime_stats": {
+         "mean": 2.1309,
+         "std": 0.02558,
+         "max": 2.22199,
+         "min": 2.08495,
+         "range": 0.13704
+      }
+   },
+   {
+      "name": "summing out",
+      "type": "var_elim",
+      "bn_size": 7,
+      "runtime_stats": {
+         "mean": 0.20736,
+         "std": 0.00732,
+         "max": 0.23847,
+         "min": 0.19443,
+         "range": 0.04404
+      }
+   },
+   {
+      "name": "summing out",
+      "type": "var_elim",
+      "bn_size": 15,
+      "runtime_stats": {
+         "mean": 8.61873,
+         "std": 0.21975,
+         "max": 9.39897,
+         "min": 8.30737,
+         "range": 1.0916
+      }
+   }
+]

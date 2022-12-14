@@ -12,7 +12,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         self.bn.load_from_bifxml("../lecture_example.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
-    def test_ex1_maxingout_1(self):
+    def test_ex1_max_out_single_var_1(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Rain?"]
 
@@ -34,7 +34,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         self.assertTrue(correct_maxed_out.equals(maxed_out))
         self.assertTrue(correct_maxed_out_extended.equals(maxed_out_extended))
 
-    def test_ex1_maxingout_2(self):
+    def test_ex1_max_out_single_var_2(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?"]
 
@@ -56,7 +56,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         self.assertTrue(correct_maxed_out.equals(maxed_out))
         self.assertTrue(correct_maxed_out_extended.equals(maxed_out_extended))
 
-    def test_ex1_maxingout_3(self):
+    def test_ex1_max_out_single_var_3(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Wet Grass?"]
 
@@ -78,11 +78,9 @@ class TestMaxingOutExample1(unittest.TestCase):
         self.assertTrue(correct_maxed_out.equals(maxed_out))
         self.assertTrue(correct_maxed_out_extended.equals(maxed_out_extended))
 
-    def test_ex1_maxingout_4(self):
+    def test_ex1_max_out_multiple_vars(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?", "Rain?"]
-
-        print(factors)
 
         maxed_out = self.reasoner.maxing_out(factors, x)
         correct_maxed_out = pd.DataFrame({
@@ -101,7 +99,7 @@ class TestMaxingOutExample1(unittest.TestCase):
         self.assertTrue(correct_maxed_out.equals(maxed_out))
         self.assertTrue(correct_maxed_out_extended.equals(maxed_out_extended))
 
-    def test_ex1_maxingout_5(self):
+    def test_ex1_max_out_all_vars(self):
         factors = self.bn.get_cpt("Wet Grass?")
         x = ["Sprinkler?", "Rain?", "Wet Grass?"]
 
