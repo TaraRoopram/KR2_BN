@@ -251,7 +251,7 @@ class BNReasoner:
         joint = self.n_f_multiplication(all_factors_list)
 
         all_variables = self.bn.get_all_variables()
-        result = self.maxing_out(joint, all_variables)
+        result = self.maxing_out(joint, all_variables, True)
         print(result)
         # ordering = self.compute_ordering_min_deg(all_variables)
         # var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
@@ -272,20 +272,22 @@ class BNReasoner:
         # return max_inst
 
 
-# reasoner = BNReasoner("testing/lecture_example2.BIFXML")
-#
-#
-# q_vars = ['I', 'J']
-# evid = {"O": True}
-# # evid = {"I": True, "O": False}
-#
+reasoner = BNReasoner("testing/lecture_example2.BIFXML")
+
+
+q_vars = ['I', 'J']
+evid = {"O": True}
+# evid = {"I": True, "O": False}
+
 # result = reasoner.MAP(q_vars, evid)
-# # result = reasoner.MPE(evid)
-reasoner = BNReasoner("testing/lecture_example.BIFXML")
-factor = reasoner.bn.get_cpt("Wet Grass?")
-
-x = ["Wet Grass?", "Rain?", "Sprinkler?"]
-
-result = reasoner.maxing_out(factor, x, True)
-print(factor)
+result = reasoner.MPE(evid)
 print(result)
+
+# reasoner = BNReasoner("testing/lecture_example.BIFXML")
+# factor = reasoner.bn.get_cpt("Wet Grass?")
+
+# x = ["Wet Grass?", "Rain?", "Sprinkler?"]
+
+# result = reasoner.maxing_out(factor, x, True)
+# print(factor)
+# print(result)
