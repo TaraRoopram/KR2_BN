@@ -1,6 +1,7 @@
 from typing import List
 import networkx as nx
 import itertools
+import pandas as pd
 
 from BayesNet import BayesNet
 
@@ -164,6 +165,7 @@ def get_factors_from_var(factors, var_name):
 #
 #     return paths
 
+
 def create_instantiation(bool_list, result_vars):
     result_dict = {}
     # ['D', 'E', 'B', 'C']
@@ -178,3 +180,24 @@ def bool_combinator(n):
         return [[]]
     subtable = bool_combinator(n - 1)
     return [row + [v] for row in subtable for v in [True, False]]
+
+
+def get_extende_factor(self, factor, original_factor, maxing_vars):
+    if isinstance(factor, pd.Series):
+        store = {}
+        for var in maxing_vars:
+            compatible_lost_val = self.bn.get_compatible_instantiations_table(
+                factor, original_factor)[var].values[0]
+            store[var] = compatible_lost_val
+        store['p'] = factor["p"]
+        return pd.Series(store)
+    else:
+        for var in maxing_vars:
+            result_list = []
+            for index, row in factor.iterrows():
+                compatible_lost_val = self.bn.get_compatible_instantiations_table(
+                    row, original_factor)[var].values[0]
+                result_list.append(compatible_lost_val)
+            factor.insert(loc=(len(factor.columns) - 1),
+                          column=var, value=result_list)
+        return factor

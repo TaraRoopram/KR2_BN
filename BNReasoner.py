@@ -76,7 +76,9 @@ class BNReasoner:
             factor = factor.groupby(columns).sum().reset_index()
         return factor
 
-    def maxing_out(self, factor: pd.DataFrame, x: List[str]):
+    def maxing_out(self, factor: pd.DataFrame, x: List[str], extended: bool = False):
+        if extended:
+            original_factor = factor.copy()
         factor = factor.drop(x, axis=1)
         columns = factor.columns.values.tolist()[:-1]
 
@@ -84,6 +86,8 @@ class BNReasoner:
             factor = factor.max()
         else:
             factor = factor.groupby(columns).max().reset_index()
+        if extended:
+            factor = util.get_extende_factor(self, factor, original_factor, x)
         return factor
 
     def factor_multiplication(self, factor_1, factor_2):
@@ -277,3 +281,11 @@ class BNReasoner:
 #
 # result = reasoner.MAP(q_vars, evid)
 # # result = reasoner.MPE(evid)
+reasoner = BNReasoner("testing/lecture_example.BIFXML")
+factor = reasoner.bn.get_cpt("Wet Grass?")
+
+x = ["Wet Grass?", "Rain?", "Sprinkler?"]
+
+result = reasoner.maxing_out(factor, x, True)
+print(factor)
+print(result)
