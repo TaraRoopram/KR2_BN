@@ -9,24 +9,24 @@ class TestLoadBIFXML(unittest.TestCase):
         self.bn = BayesNet()
 
     def test_load_bifxml_ex3(self):
-        self.bn.load_from_bifxml("../test_example_3.BIFXML")
+        self.bn.load_from_bifxml("../bifxml/test_example_3.BIFXML")
         # self.bn.draw_structure()
 
     def test_load_bifxml_ex4(self):
-        self.bn.load_from_bifxml("../test_example_4.BIFXML")
+        self.bn.load_from_bifxml("../bifxml/test_example_4.BIFXML")
         # self.bn.draw_structure()
 
     def test_load_bifxml_worksheet_2(self):
-        self.bn.load_from_bifxml("../test_example_worksheet_2.BIFXML")
+        self.bn.load_from_bifxml("../bifxml/test_example_worksheet_2.BIFXML")
         # self.bn.draw_structure()
 
     def test_load_bifxml_bin_tree_3(self):
-        self.bn.load_from_bifxml("../experiments/bin_tree_3.BIFXML")
+        self.bn.load_from_bifxml("../../experiments/bifxml/bin_tree_3.BIFXML")
         self.assertTrue(is_child_of(self.bn, "A1", "Root"))
         self.assertTrue(is_child_of(self.bn, "A2", "Root"))
 
     def test_load_bifxml_bin_tree_7(self):
-        self.bn.load_from_bifxml("../experiments/bin_tree_7.BIFXML")
+        self.bn.load_from_bifxml("../../experiments/bifxml/bin_tree_7.BIFXML")
         self.assertTrue(is_child_of(self.bn, "A1", "Root"))
         self.assertTrue(is_child_of(self.bn, "A2", "Root"))
 
@@ -36,7 +36,7 @@ class TestLoadBIFXML(unittest.TestCase):
         self.assertTrue(is_child_of(self.bn, "B4", "A2"))
 
     def test_load_bifxml_bin_tree_15(self):
-        self.bn.load_from_bifxml("../experiments/bin_tree_15.BIFXML")
+        self.bn.load_from_bifxml("../../experiments/bifxml/bin_tree_15.BIFXML")
         self.assertTrue(is_child_of(self.bn, "A1", "Root"))
         self.assertTrue(is_child_of(self.bn, "A2", "Root"))
 
@@ -55,7 +55,7 @@ class TestLoadBIFXML(unittest.TestCase):
         self.assertTrue(is_child_of(self.bn, "C8", "B4"))
 
     def test_load_bifxml_bin_tree_31(self):
-        self.bn.load_from_bifxml("../experiments/bin_tree_31.BIFXML")
+        self.bn.load_from_bifxml("../../experiments/bifxml/bin_tree_31.BIFXML")
         self.assertTrue(is_child_of(self.bn, "A1", "Root"))
         self.assertTrue(is_child_of(self.bn, "A2", "Root"))
 

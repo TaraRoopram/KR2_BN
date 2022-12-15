@@ -12,7 +12,7 @@ import BNReasonerUtil as util
 class TestMarginalizationExample1(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../lecture_example.BIFXML")
+        self.bn.load_from_bifxml("../bifxml/lecture_example.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex1_marginalization_single_var_1(self):

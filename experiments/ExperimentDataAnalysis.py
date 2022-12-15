@@ -2,37 +2,33 @@ import json
 import unittest
 import numpy as np
 import os
-import timeit
-from typing import Union, List, TextIO
+from typing import Union, TextIO
 
-from BNReasoner import BNReasoner
-from BayesNet import BayesNet
-
-ROUND_NUM = 5
+ROUND_NUM = 3
 
 
 class ExperimentDataAnalysis(unittest.TestCase):
     def test_analysis_ordering_100(self):
         ordering_stats = []
-        for file in os.listdir("./results"):
+        for file in os.listdir("results"):
             if file.endswith("min_deg_100.json") or file.endswith("min_fill_100.json"):
-                file_name = os.path.join("./results", file)
+                file_name = os.path.join("results", file)
                 stats = calculate_runtime_stats_from_file(file_name)
                 ordering_stats.append(stats)
 
         ordering_stats = sorted(ordering_stats, key=lambda k: k["bn_size"])
-        save_json_data(ordering_stats, "./stats/stats_ordering_100.json")
+        save_json_data(ordering_stats, "stats/stats_ordering_100.json")
 
     def test_analysis_sum_out_100(self):
         ordering_stats = []
-        for file in os.listdir("./results"):
+        for file in os.listdir("results"):
             if file.endswith("naive_100.json") or file.endswith("var_elim_100.json"):
-                file_name = os.path.join("./results", file)
+                file_name = os.path.join("results", file)
                 stats = calculate_runtime_stats_from_file(file_name)
                 ordering_stats.append(stats)
 
         ordering_stats = sorted(ordering_stats, key=lambda k: k["bn_size"])
-        save_json_data(ordering_stats, "./stats/stats_sum_out_100.json")
+        save_json_data(ordering_stats, "stats/stats_sum_out_100.json")
 
 
 def load_json_data(file_path: Union[str, TextIO]):

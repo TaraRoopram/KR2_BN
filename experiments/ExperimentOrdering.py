@@ -14,7 +14,7 @@ ITERATIONS = 100
 class ExperimentOrderingBinaryTree3(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_3.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_3.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 3
 
@@ -48,7 +48,7 @@ class ExperimentOrderingBinaryTree3(unittest.TestCase):
 class ExperimentOrderingBinaryTree7(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_7.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_7.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 7
 
@@ -82,7 +82,7 @@ class ExperimentOrderingBinaryTree7(unittest.TestCase):
 class ExperimentOrderingBinaryTree15(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_15.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_15.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 15
 
@@ -116,7 +116,7 @@ class ExperimentOrderingBinaryTree15(unittest.TestCase):
 class ExperimentOrderingBinaryTree31(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_31.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_31.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 31
 
@@ -153,7 +153,6 @@ def perform_min_fill(bn: BayesNet, reasoner: BNReasoner):
 
     start = timeit.default_timer()
     min_fill = reasoner.compute_ordering_min_fill(variables)
-    print(min_fill)
     var_elim = reasoner.variable_elimination(factors, min_fill)
     stop = timeit.default_timer()
     return round(stop - start, ROUND_NUM)
@@ -165,7 +164,6 @@ def perform_min_deg(bn: BayesNet, reasoner: BNReasoner):
 
     start = timeit.default_timer()
     min_deg = reasoner.compute_ordering_min_deg(variables)
-    print(min_deg)
     var_elim = reasoner.variable_elimination(factors, min_deg)
     stop = timeit.default_timer()
     return round(stop - start, ROUND_NUM)
@@ -174,9 +172,9 @@ def perform_min_deg(bn: BayesNet, reasoner: BNReasoner):
 def perform_100_min_deg(bn: BayesNet, reasoner: BNReasoner):
     all_runtime = []
     for i in range(ITERATIONS):
-        print(i)
         runtime = perform_min_deg(bn, reasoner)
         all_runtime.append(runtime)
+        print(f"Run {i+1} => {runtime}s")
 
     return all_runtime
 
@@ -184,9 +182,9 @@ def perform_100_min_deg(bn: BayesNet, reasoner: BNReasoner):
 def perform_100_min_fill(bn: BayesNet, reasoner: BNReasoner):
     all_runtime = []
     for i in range(ITERATIONS):
-        print(i)
         runtime = perform_min_fill(bn, reasoner)
         all_runtime.append(runtime)
+        print(f"Run {i+1} => {runtime}s")
 
     return all_runtime
 

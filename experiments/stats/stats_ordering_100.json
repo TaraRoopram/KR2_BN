@@ -1,0 +1,98 @@
+[
+   {
+      "name": "ordering",
+      "type": "min_deg",
+      "bn_size": 3,
+      "runtime_stats": {
+         "mean": 0.048,
+         "std": 0.007,
+         "max": 0.075,
+         "min": 0.039,
+         "range": 0.036
+      }
+   },
+   {
+      "name": "ordering",
+      "type": "min_fill",
+      "bn_size": 3,
+      "runtime_stats": {
+         "mean": 0.045,
+         "std": 0.006,
+         "max": 0.066,
+         "min": 0.038,
+         "range": 0.027
+      }
+   },
+   {
+      "name": "ordering",
+      "type": "min_deg",
+      "bn_size": 7,
+      "runtime_stats": {
+         "mean": 0.122,
+         "std": 0.014,
+         "max": 0.162,
+         "min": 0.1,
+         "range": 0.062
+      }
+   },
+   {
+      "name": "ordering",
+      "type": "min_fill",
+      "bn_size": 7,
+      "runtime_stats": {
+         "mean": 0.119,
+         "std": 0.013,
+         "max": 0.165,
+         "min": 0.101,
+         "range": 0.064
+      }
+   },
+   {
+      "name": "ordering",
+      "type": "min_deg",
+      "bn_size": 15,
+      "runtime_stats": {
+         "mean": 0.27,
+         "std": 0.025,
+         "max": 0.38,
+         "min": 0.227,
+         "range": 0.153
+      }
+   },
+   {
+      "name": "ordering",
+      "type": "min_fill",
+      "bn_size": 15,
+      "runtime_stats": {
+         "mean": 0.27,
+         "std": 0.021,
+         "max": 0.331,
+         "min": 0.231,
+         "range": 0.101
+      }
+   },
+   {
+      "name": "ordering",
+      "type": "min_deg",
+      "bn_size": 31,
+      "runtime_stats": {
+         "mean": 0.566,
+         "std": 0.04,
+         "max": 0.778,
+         "min": 0.5,
+         "range": 0.278
+      }
+   },
+   {
+      "name": "ordering",
+      "type": "min_fill",
+      "bn_size": 31,
+      "runtime_stats": {
+         "mean": 0.569,
+         "std": 0.028,
+         "max": 0.648,
+         "min": 0.498,
+         "range": 0.15
+      }
+   }
+]

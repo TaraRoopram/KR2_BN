@@ -4,10 +4,10 @@
       "type": "naive",
       "bn_size": 3,
       "runtime_stats": {
-         "mean": 0.03693,
-         "std": 0.00237,
-         "max": 0.04355,
-         "min": 0.03255,
+         "mean": 0.037,
+         "std": 0.002,
+         "max": 0.044,
+         "min": 0.033,
          "range": 0.011
       }
    },
@@ -16,11 +16,11 @@
       "type": "var_elim",
       "bn_size": 3,
       "runtime_stats": {
-         "mean": 0.03697,
-         "std": 0.00176,
-         "max": 0.04149,
-         "min": 0.03391,
-         "range": 0.00758
+         "mean": 0.037,
+         "std": 0.002,
+         "max": 0.041,
+         "min": 0.034,
+         "range": 0.008
       }
    },
    {
@@ -28,11 +28,11 @@
       "type": "naive",
       "bn_size": 7,
       "runtime_stats": {
-         "mean": 2.1309,
-         "std": 0.02558,
-         "max": 2.22199,
-         "min": 2.08495,
-         "range": 0.13704
+         "mean": 2.131,
+         "std": 0.026,
+         "max": 2.222,
+         "min": 2.085,
+         "range": 0.137
       }
    },
    {
@@ -40,11 +40,11 @@
       "type": "var_elim",
       "bn_size": 7,
       "runtime_stats": {
-         "mean": 0.20736,
-         "std": 0.00732,
-         "max": 0.23847,
-         "min": 0.19443,
-         "range": 0.04404
+         "mean": 0.207,
+         "std": 0.007,
+         "max": 0.238,
+         "min": 0.194,
+         "range": 0.044
       }
    },
    {
@@ -52,11 +52,11 @@
       "type": "var_elim",
       "bn_size": 15,
       "runtime_stats": {
-         "mean": 8.61873,
-         "std": 0.21975,
-         "max": 9.39897,
-         "min": 8.30737,
-         "range": 1.0916
+         "mean": 8.619,
+         "std": 0.22,
+         "max": 9.399,
+         "min": 8.307,
+         "range": 1.092
       }
    }
 ]

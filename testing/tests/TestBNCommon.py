@@ -9,7 +9,7 @@ import BNReasonerUtil as util
 class TestBNCommonExample1(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../lecture_example.BIFXML")
+        self.bn.load_from_bifxml("../bifxml/lecture_example.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_l1_get_all_paths_1(self):
@@ -49,7 +49,7 @@ class TestBNCommonExample1(unittest.TestCase):
 class TestBNCommonExample2(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../lecture_example2.BIFXML")
+        self.bn.load_from_bifxml("../bifxml/lecture_example2.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_l2_get_all_paths_1(self):
@@ -88,7 +88,7 @@ class TestBNCommonExample2(unittest.TestCase):
 class TestBNCommonExample3(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../test_example_3.BIFXML")
+        self.bn.load_from_bifxml("../bifxml/test_example_3.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex3_get_all_paths_1(self):

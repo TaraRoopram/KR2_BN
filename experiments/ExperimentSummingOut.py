@@ -14,7 +14,7 @@ ITERATIONS = 100
 class ExperimentSummingOutBinaryTree3(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_3.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_3.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 3
 
@@ -48,7 +48,7 @@ class ExperimentSummingOutBinaryTree3(unittest.TestCase):
 class ExperimentSummingOutBinaryTree7(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_7.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_7.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 7
 
@@ -82,7 +82,7 @@ class ExperimentSummingOutBinaryTree7(unittest.TestCase):
 class ExperimentSummingOutBinaryTree15(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_15.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_15.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 15
 
@@ -117,7 +117,7 @@ class ExperimentSummingOutBinaryTree15(unittest.TestCase):
 class ExperimentSummingOutBinaryTree31(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("./bin_tree_31.BIFXML")
+        self.bn.load_from_bifxml("./bifxml/bin_tree_31.BIFXML")
         self.reasoner = BNReasoner(self.bn)
         self.bn_size = 31
 
@@ -199,7 +199,7 @@ def perform_100_naive_sum_out(bn: BayesNet, reasoner: BNReasoner):
     for i in range(ITERATIONS):
         runtime = perform_naive_sum_out(bn, reasoner)
         all_runtime.append(runtime)
-        print(f"Run {i} => {runtime}s")
+        print(f"Run {i+1} => {runtime}s")
 
     return all_runtime
 
@@ -209,6 +209,6 @@ def perform_100_var_elim(bn: BayesNet, reasoner: BNReasoner):
     for i in range(ITERATIONS):
         runtime = perform_var_elim(bn, reasoner)
         all_runtime.append(runtime)
-        print(f"Run {i} => {runtime}s")
+        print(f"Run {i+1} => {runtime}s")
 
     return all_runtime
