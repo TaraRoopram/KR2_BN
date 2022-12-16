@@ -258,7 +258,10 @@ class BNReasoner:
         return var_elim
 
     def MPE(self, evidence):
+        self.prune_network(q_vars, evidence)
+
         factors = self.bn.get_all_cpts()
+
         # for var_name, df in factors.items():
         #     factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
         all_factors_list = [i for i in factors.values()]
@@ -315,7 +318,8 @@ q_vars = ['Overeating']
 evid = {"Diabetes": True}
 # evid = {"I": True, "O": False}
 
-result = reasoner.MAP(q_vars, evid)
+# result = reasoner.MAP(q_vars, evid)
+result = reasoner.MPE(evid)
 print('result')
 print(result)
 
