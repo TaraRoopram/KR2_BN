@@ -259,14 +259,33 @@ class BNReasoner:
         return result
 
     def MAP(self, query_vars: List[str], evidence: Dict[str, bool]):
-        marginalized_distribution = self.marginal_distribution(
-            query_vars, evidence)
-        print(marginalized_distribution)
-        print(query_vars)
-        # maxed_out_extended = self.maxing_out(
-        #     marginalized_distribution, query_vars)
-        # print('result')
-        # print(maxed_out_extended)
-        # max_inst = maxed_out_extended.query('p == p.max()')
-        # print(max_inst)
-        # return max_inst
+        self.prune_network(q_vars, evidence)
+        factors = self.bn.get_all_cpts()
+        query_vars_dict = {}
+        for var_name, df in factors.items():
+            factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
+        ordering = list(set(self.bn.get_all_variables()) - set(query_vars))
+        for key in query_vars:
+            query_vars_dict[key] = factors.pop(key, None)
+        min_Q = [i for i in factors.values()]
+        mult_min_Q = self.n_f_multiplication(min_Q)
+        summed_out = self.marginalize(mult_min_Q, ordering)
+        for query_var, table in query_vars_dict.items():
+            mult_factor = self.two_f_multiplication(summed_out, table)
+            maxed_out = self.maxing_out(mult_factor, [query_var], True)
+            summed_out = maxed_out
+        # Get highest row
+        if isinstance(summed_out, pd.Series):
+            return summed_out
+        final_result = summed_out.iloc[[summed_out["p"].idxmax()]]
+        return final_result
+
+
+reasoner = BNReasoner("testing/lecture_example2.BIFXML")
+
+
+q_vars = ['I', "J"]
+evid = {"O": True}
+
+result = reasoner.MAP(q_vars, evid)
+print(result)
