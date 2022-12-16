@@ -168,6 +168,10 @@ class BNReasoner:
         self.bn.draw_structure()
 
     def two_f_multiplication(self, table_1, table_2):
+        # print('table 1')
+        # print(table_1)
+        # print('table2')
+        # print(table_2)
         # Setup
         f1_vars = list(table_1.keys())
         f2_vars = list(table_2.keys())
@@ -175,19 +179,31 @@ class BNReasoner:
         column_names = result_vars[:]
         column_names.append('p')
         result_list = []
+        history_column = False
         # calculate p for all boolean_combinations
         bool_combinations = util.bool_combinator(len(result_vars))
         for combination in bool_combinations:
             instanciation = util.create_instantiation(combination, result_vars)
+            if "p" in instanciation:
+                print(instanciation['p'])
+                instanciation.pop('p')
             instanciation_series = pd.Series(instanciation)
             # Get compatable rows per original factor
-            p_table_1 = self.bn.get_compatible_instantiations_table(
-                instanciation_series, table_1)['p'].values[0]
-            p_table_2 = self.bn.get_compatible_instantiations_table(
-                instanciation_series, table_2)['p'].values[0]
+            compatible_table_1 = self.bn.get_compatible_instantiations_table(
+                instanciation_series, table_1)
+            compatible_table_2 = self.bn.get_compatible_instantiations_table(
+                instanciation_series, table_2)
+            p_table_1 = compatible_table_1['p'].values[0]
+            p_table_2 = compatible_table_2['p'].values[0]
             multiplied_p = p_table_1 * p_table_2
             instanciation['p'] = multiplied_p
+            if 'history' in compatible_table_1:
+                history_column = True
+                instanciation['history'] = compatible_table_1['history'].values[0]
             result_list.append(instanciation)
+        if history_column:
+            column_names.remove('p')
+            column_names.append('history')
 
         return pd.DataFrame(result_list, columns=column_names)
 
@@ -233,30 +249,52 @@ class BNReasoner:
         factors = self.bn.get_all_cpts()
         for var_name, df in factors.items():
             factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
-
         ordering = list(set(self.bn.get_all_variables()) - set(query_vars))
         var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
 
         summed_out = self.marginalize(var_elim, query_vars).values[0]
-        var_elim["p"] = var_elim["p"].div(summed_out)
+        var_elim["p"] = var_elim["p"].div(summed_out).round(2)
 
         return var_elim
 
     def MPE(self, evidence):
+        self.prune_network([], evidence)
         factors = self.bn.get_all_cpts()
-        # for var_name, df in factors.items():
-        #     factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
-        all_factors_list = [i for i in factors.values()]
-
-        joint = self.n_f_multiplication(all_factors_list)
-
         all_variables = self.bn.get_all_variables()
-        result = self.maxing_out(joint, all_variables, True)
-        print(result)
+        # self.compute_ordering_min_deg(all_variables)
+        ordering = ['I', 'X', 'Y']
+        evidence_dict = {}
+        for key in evidence:
+            evidence_dict[key] = factors.pop(key, None)
+        remaing_factors_list = [i for i in factors.values()]
+        inital_ = []
+
+        # for key in ordering:
+        #     print()
+
+        # for key, value in evidence_dict.items():
+        #     print('for key: ', key)
+        #     res = self.maxing_out(value, key)
+        #     print(res)
+        # while remaing_factors_list:
+        #     if len(remaing_factors_list) == 1:
+        #         return remaing_factors_list[0]
+        #     else:
+
+        #         remaing_factors_list.append(self.two_f_multiplication(
+        #             remaing_factors_list.pop(), remaing_factors_list.pop()))
+
+        # return "Input was an empty list"
+        # all_factors_list = [i for i in factors.values()]
+
+        # joint = self.n_f_multiplication(all_factors_list)
+
+        # all_variables = self.bn.get_all_variables()
+        # result = self.maxing_out(joint, all_variables, True)
         # ordering = self.compute_ordering_min_deg(all_variables)
         # var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
         # print(var_elim)
-        return result
+        return 'result'
 
     def MAP(self, query_vars: List[str], evidence: Dict[str, bool]):
         self.prune_network(q_vars, evidence)
@@ -266,7 +304,7 @@ class BNReasoner:
             factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
         ordering = list(set(self.bn.get_all_variables()) - set(query_vars))
         for key in query_vars:
-            query_vars_dict[key] = factors.pop(key, None)
+            query_vars_dict[key] = self.marginal_distribution([key], evidence)
         min_Q = [i for i in factors.values()]
         mult_min_Q = self.n_f_multiplication(min_Q)
         summed_out = self.marginalize(mult_min_Q, ordering)
@@ -281,11 +319,35 @@ class BNReasoner:
         return final_result
 
 
-reasoner = BNReasoner("testing/lecture_example2.BIFXML")
+reasoner = BNReasoner("testing/bifxml/use_case.BIFXML")
+
+# for key in query_vars:
+# #     query_vars_dict[key] = self.marginal_distribution(key, {})
+# q_vars = ['I', "J"]
+# evid = {"O": True}
+
+# # all_vars = reasoner.bn.get_all_variables()
+# # variables_to_remove = [x for x in all_vars if x not in q_vars]
 
 
-q_vars = ['I', "J"]
-evid = {"O": True}
+# result = reasoner.MAP(q_vars, evid)
+# print(result)
+
+
+q_vars = ['Overeating']
+evid = {"Diabetes": True}
+# evid = {"I": True, "O": False}
 
 result = reasoner.MAP(q_vars, evid)
+print('result')
 print(result)
+
+
+# reasoner = BNReasoner("testing/lecture_example.BIFXML")
+# factor = reasoner.bn.get_cpt("Wet Grass?")
+
+# x = ["Wet Grass?", "Rain?", "Sprinkler?"]
+
+# result = reasoner.maxing_out(factor, x, True)
+# print(factor)
+# print(result)

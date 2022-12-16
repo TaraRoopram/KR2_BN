@@ -185,19 +185,28 @@ def bool_combinator(n):
 def get_extended_factor(self, factor, original_factor, maxing_vars):
     if isinstance(factor, pd.Series):
         store = {}
+        if 'history' not in factor:
+            store["history"] = ''
+            factor["history"] = ''
         for var in maxing_vars:
             compatible_lost_val = self.bn.get_compatible_instantiations_table(
                 factor, original_factor)[var].values[0]
-            store[var] = compatible_lost_val
+            old_string = store["history"]
+            result_string = f'|{old_string} {str(var)}: {compatible_lost_val}|'
+            store["history"] = result_string
+
         store['p'] = factor["p"]
         return pd.Series(store)
     else:
+        if 'history' not in factor:
+            factor['history'] = ''
         for var in maxing_vars:
             result_list = []
             for index, row in factor.iterrows():
                 compatible_lost_val = self.bn.get_compatible_instantiations_table(
                     row, original_factor)[var].values[0]
-                result_list.append(compatible_lost_val)
-            factor.insert(loc=(len(factor.columns) - 1),
-                          column=var, value=result_list)
+                old_string = row['history']
+                result_string = f'|{old_string} {str(var)}: {compatible_lost_val}|'
+                result_list.append(result_string)
+            factor['history'] = result_list
         return factor
