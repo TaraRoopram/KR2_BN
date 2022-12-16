@@ -258,43 +258,20 @@ class BNReasoner:
         return var_elim
 
     def MPE(self, evidence):
-        self.prune_network([], evidence)
         factors = self.bn.get_all_cpts()
+        # for var_name, df in factors.items():
+        #     factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
+        all_factors_list = [i for i in factors.values()]
+
+        joint = self.n_f_multiplication(all_factors_list)
+
         all_variables = self.bn.get_all_variables()
-        # self.compute_ordering_min_deg(all_variables)
-        ordering = ['I', 'X', 'Y']
-        evidence_dict = {}
-        for key in evidence:
-            evidence_dict[key] = factors.pop(key, None)
-        remaing_factors_list = [i for i in factors.values()]
-        inital_ = []
-
-        # for key in ordering:
-        #     print()
-
-        # for key, value in evidence_dict.items():
-        #     print('for key: ', key)
-        #     res = self.maxing_out(value, key)
-        #     print(res)
-        # while remaing_factors_list:
-        #     if len(remaing_factors_list) == 1:
-        #         return remaing_factors_list[0]
-        #     else:
-
-        #         remaing_factors_list.append(self.two_f_multiplication(
-        #             remaing_factors_list.pop(), remaing_factors_list.pop()))
-
-        # return "Input was an empty list"
-        # all_factors_list = [i for i in factors.values()]
-
-        # joint = self.n_f_multiplication(all_factors_list)
-
-        # all_variables = self.bn.get_all_variables()
-        # result = self.maxing_out(joint, all_variables, True)
+        result = self.maxing_out(joint, all_variables, True)
+        print(result)
         # ordering = self.compute_ordering_min_deg(all_variables)
         # var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
         # print(var_elim)
-        return 'result'
+        return result
 
     def MAP(self, query_vars: List[str], evidence: Dict[str, bool]):
         self.prune_network(q_vars, evidence)
