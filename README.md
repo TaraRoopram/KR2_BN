@@ -18,7 +18,9 @@ the tests in an IDE such as PyCharm.
 
 ## Reproducing the Experiments
 As shown in the paper, two experiments were conducted and their 
-results can be reproduced as follows. 
+results can be reproduced as follows. Please note that the results
+may vary per machine, but the general pattern should still be apparent
+after running the experiments.
 
 ### Experiment 1: Ordering Heuristics
 The test set consisted of binary tree shaped BNs of four different sizes.
@@ -42,9 +44,10 @@ python -m experiments.ExperimentSummingOut run_sum_out_100_tree_31
 ```
 
 ### Output
-After running any of the command outlined above, the runtime for each iteration and its corresponding
-statistics are printed. These are computed sequentially for each algorithm
-involved in the experiment. As an example, the format of the output is as follows:
+After running any of the command outlined above, the runtime for each iteration of the experiment is printed. These are 
+computed sequentially for each algorithm involved in the experiment. 
+As an example, the format of the output is as follows, which are shortened
+for the sake of this example:
 ```
 Running the min-degree ordering heuristic on a BN of size 7...
 Run 1 => 0.05739s
@@ -61,7 +64,12 @@ Run 2 => 0.05347s
 .
 .
 Run 100 => 0.0534s
+```
 
+Afterwards, the statistics as presented in the paper are also
+computed and printed:
+
+```
 Results for the min-degree ordering heuristic (size = 7):
 {
    "mean": 0.05623,
