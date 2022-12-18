@@ -41,7 +41,7 @@ python -m experiments.ExperimentSummingOut run_sum_out_100_tree_15
 python -m experiments.ExperimentSummingOut run_sum_out_100_tree_31
 ```
 
-## Output
+### Output
 After running any of the command outlined above, the runtime for each iteration and its corresponding
 statistics are printed. These are computed sequentially for each algorithm
 involved in the experiment. As an example, the format of the output is as follows:
@@ -79,5 +79,4 @@ Results for the min-fill ordering heuristic (size = 7):
    "min": 0.05021,
    "range": 0.01852
 }
-
 ```
