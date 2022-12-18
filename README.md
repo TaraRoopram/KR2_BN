@@ -57,7 +57,7 @@ Run 2 => 0.05937s
 .
 Run 100 => 0.05384s
 
-Running min-fill ordering heuristic on a BN of size 7...
+Running the min-fill ordering heuristic on a BN of size 7...
 Run 1 => 0.05199s
 Run 2 => 0.05347s
 .
