@@ -236,15 +236,17 @@ def calculate_statistics(data):
 
 def run_sum_out_100(bn_size):
     bn, reasoner = set_up_experiment(f"experiments/bifxml/bin_tree_{bn_size}.BIFXML")
+    print(f"Running naive summing-out on a BN of size {bn_size}...")
     naive_runtimes = perform_100_naive_sum_out(bn, reasoner)
+    print(f"\nRunning variable elimination on a BN of size {bn_size}...")
     var_elim_runtimes = perform_100_var_elim(bn, reasoner)
     naive_stats = calculate_statistics(naive_runtimes)
     var_elim_stats = calculate_statistics(var_elim_runtimes)
 
-    print("Results for naive summing-out:")
+    print(f"\nResults for naive summing-out (size = {bn_size}):")
     print(f"{json.dumps(naive_stats, indent=3)}")
 
-    print("Results for variable elimination: ")
+    print(f"\nResults for variable elimination (size = {bn_size}):")
     print(f"{json.dumps(var_elim_stats, indent=3)}")
 
 

@@ -230,15 +230,17 @@ def calculate_statistics(data):
 
 def run_ordering_100(bn_size):
     bn, reasoner = set_up_experiment(f"experiments/bifxml/bin_tree_{bn_size}.BIFXML")
+    print(f"Running the min-degree ordering heuristic on a BN of size {bn_size}...")
     min_deg_runtimes = perform_100_min_deg(bn, reasoner)
+    print(f"\nRunning the min-fill ordering heuristic on a BN of size {bn_size}...")
     min_fill_runtimes = perform_100_min_fill(bn, reasoner)
     min_deg_stats = calculate_statistics(min_deg_runtimes)
     min_fill_stats = calculate_statistics(min_fill_runtimes)
 
-    print("Results for min-degree ordering:")
+    print(f"\nResults for the min-degree ordering heuristic (size = {bn_size}):")
     print(f"{json.dumps(min_deg_stats, indent=3)}")
 
-    print("Results for min-fill ordering: ")
+    print(f"\nResults for the min-fill ordering heuristic (size = {bn_size}):")
     print(f"{json.dumps(min_fill_stats, indent=3)}")
 
 
