@@ -46,7 +46,7 @@ python -m experiments.ExperimentSummingOut run_sum_out_100_tree_31
 ### Output
 After running any of the command outlined above, the runtime for each iteration of the experiment is printed. These are 
 computed sequentially for each algorithm involved in the experiment. 
-As an example, the format of the output is as follows, which are shortened
+As an example, the format of the output is as follows, which is shortened
 for the sake of this example:
 ```
 Running the min-degree ordering heuristic on a BN of size 7...
