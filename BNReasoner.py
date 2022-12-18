@@ -4,6 +4,7 @@ import pandas as pd
 
 from BayesNet import BayesNet
 import BNReasonerUtil as util
+import numpy as np
 
 
 class BNReasoner:
@@ -270,21 +271,36 @@ class BNReasoner:
 
         all_variables = self.bn.get_all_variables()
         result = self.maxing_out(joint, all_variables, True)
-        print(result)
         # ordering = self.compute_ordering_min_deg(all_variables)
         # var_elim = pd.DataFrame(self.variable_elimination(factors, ordering))
         # print(var_elim)
         return result
 
     def MAP(self, query_vars: List[str], evidence: Dict[str, bool]):
-        self.prune_network(query_vars, evidence)
+        self.prune_network(q_vars, evidence)
         factors = self.bn.get_all_cpts()
         query_vars_dict = {}
         for var_name, df in factors.items():
             factors[var_name] = self.bn.reduce_factor(pd.Series(evidence), df)
         ordering = list(set(self.bn.get_all_variables()) - set(query_vars))
+        # If marginal k in factors, dont add. If not add marginal
         for key in query_vars:
-            query_vars_dict[key] = self.marginal_distribution([key], evidence)
+            marginal_key = self.marginal_distribution([key], {})
+            if key in factors:
+                comparison = factors[key].columns.values == marginal_key.columns.values
+                if isinstance(comparison, np.ndarray):
+                    comparison = comparison.all()
+                if comparison:
+                    query_vars_dict[key] = self.marginal_distribution([
+                                                                      key], {})
+                    factors.pop(key)
+                else:
+                    query_vars_dict[key] = self.marginal_distribution([
+                                                                      key], {})
+            else:
+                query_vars_dict[key] = self.marginal_distribution([
+                    key], {})
+
         min_Q = [i for i in factors.values()]
         mult_min_Q = self.n_f_multiplication(min_Q)
         summed_out = self.marginalize(mult_min_Q, ordering)
@@ -299,36 +315,10 @@ class BNReasoner:
         return final_result
 
 
-# reasoner = BNReasoner("testing/bifxml/use_case.BIFXML")
-#
-# # for key in query_vars:
-# # #     query_vars_dict[key] = self.marginal_distribution(key, {})
-# # q_vars = ['I', "J"]
-# # evid = {"O": True}
-#
-# # # all_vars = reasoner.bn.get_all_variables()
-# # # variables_to_remove = [x for x in all_vars if x not in q_vars]
-#
-#
-# # result = reasoner.MAP(q_vars, evid)
-# # print(result)
-#
-#
-# q_vars = ['Overeating']
-# evid = {"Diabetes": True}
-# # evid = {"I": True, "O": False}
-#
-# # result = reasoner.MAP(q_vars, evid)
-# result = reasoner.MPE(evid)
-# print('result')
-# print(result)
+# reasoner = BNReasoner("testing/bifxml/lecture_example2.BIFXML")
 
 
-# reasoner = BNReasoner("testing/lecture_example.BIFXML")
-# factor = reasoner.bn.get_cpt("Wet Grass?")
-
-# x = ["Wet Grass?", "Rain?", "Sprinkler?"]
-
-# result = reasoner.maxing_out(factor, x, True)
-# print(factor)
+# q_vars = ['I', "J"]
+# evid = {"O": True}
+# result = reasoner.MAP(q_vars, evid)
 # print(result)
