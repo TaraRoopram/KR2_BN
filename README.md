@@ -66,8 +66,8 @@ Run 2 => 0.05347s
 Run 100 => 0.0534s
 ```
 
-Afterwards, the statistics as presented in the paper are also
-computed and printed:
+Afterwards, the following statistics are computed and printed,
+as presented in the paper:
 
 ```
 Results for the min-degree ordering heuristic (size = 7):
