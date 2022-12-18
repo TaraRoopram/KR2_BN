@@ -23,7 +23,7 @@ may vary per machine, but the general pattern as presented in the paper
 should still be apparent.
 
 ### Experiment 1: Ordering Heuristics
-The test set consisted of four binary tree shaped BNs of different sizes.
+The test set consists of four binary tree shaped BNs of different sizes.
 The following command can be run to reproduce the results for each
 BN size, respectively:
 ```commandline
