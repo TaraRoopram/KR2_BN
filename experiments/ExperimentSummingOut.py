@@ -1,7 +1,10 @@
+import sys
 import unittest
 import timeit
 import json
 from typing import Union, List
+
+import numpy as np
 
 from BNReasoner import BNReasoner
 from BayesNet import BayesNet
@@ -199,7 +202,7 @@ def perform_100_naive_sum_out(bn: BayesNet, reasoner: BNReasoner):
     for i in range(ITERATIONS):
         runtime = perform_naive_sum_out(bn, reasoner)
         all_runtime.append(runtime)
-        print(f"Run {i+1} => {runtime}s")
+        print(f"Run {i + 1} => {runtime}s")
 
     return all_runtime
 
@@ -209,6 +212,57 @@ def perform_100_var_elim(bn: BayesNet, reasoner: BNReasoner):
     for i in range(ITERATIONS):
         runtime = perform_var_elim(bn, reasoner)
         all_runtime.append(runtime)
-        print(f"Run {i+1} => {runtime}s")
+        print(f"Run {i + 1} => {runtime}s")
 
     return all_runtime
+
+
+def set_up_experiment(file_path):
+    bn = BayesNet()
+    bn.load_from_bifxml(file_path)
+    reasoner = BNReasoner(bn)
+    return bn, reasoner
+
+
+def calculate_statistics(data):
+    return {
+        "mean": np.round(np.mean(data), ROUND_NUM),
+        "std": np.round(np.std(data), ROUND_NUM),
+        "max": np.round(np.max(data), ROUND_NUM),
+        "min": np.round(np.min(data), ROUND_NUM),
+        "range": np.round(np.max(data) - np.min(data), ROUND_NUM)
+    }
+
+
+def run_sum_out_100(bn_size):
+    bn, reasoner = set_up_experiment(f"experiments/bifxml/bin_tree_{bn_size}.BIFXML")
+    naive_runtimes = perform_100_naive_sum_out(bn, reasoner)
+    var_elim_runtimes = perform_100_var_elim(bn, reasoner)
+    naive_stats = calculate_statistics(naive_runtimes)
+    var_elim_stats = calculate_statistics(var_elim_runtimes)
+
+    print("Results for naive summing-out:")
+    print(f"{json.dumps(naive_stats, indent=3)}")
+
+    print("Results for variable elimination: ")
+    print(f"{json.dumps(var_elim_stats, indent=3)}")
+
+
+def run_sum_out_100_tree_3():
+    run_sum_out_100(3)
+
+
+def run_sum_out_100_tree_7():
+    run_sum_out_100(7)
+
+
+def run_sum_out_100_tree_15():
+    run_sum_out_100(15)
+
+
+def run_sum_out_100_tree_31():
+    run_sum_out_100(31)
+
+
+if __name__ == '__main__':
+    globals()[sys.argv[1]]()

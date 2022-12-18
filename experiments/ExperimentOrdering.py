@@ -1,7 +1,10 @@
 import json
+import sys
 import unittest
 import timeit
 from typing import Union, List
+
+import numpy as np
 
 from BNReasoner import BNReasoner
 from BayesNet import BayesNet
@@ -174,7 +177,7 @@ def perform_100_min_deg(bn: BayesNet, reasoner: BNReasoner):
     for i in range(ITERATIONS):
         runtime = perform_min_deg(bn, reasoner)
         all_runtime.append(runtime)
-        print(f"Run {i+1} => {runtime}s")
+        print(f"Run {i + 1} => {runtime}s")
 
     return all_runtime
 
@@ -184,7 +187,7 @@ def perform_100_min_fill(bn: BayesNet, reasoner: BNReasoner):
     for i in range(ITERATIONS):
         runtime = perform_min_fill(bn, reasoner)
         all_runtime.append(runtime)
-        print(f"Run {i+1} => {runtime}s")
+        print(f"Run {i + 1} => {runtime}s")
 
     return all_runtime
 
@@ -206,3 +209,54 @@ def save_experiment_results(filename, name="N/A", type="N/A", bn_size=-1, runtim
 
     with open(f"./results/{filename}", "w+") as file:
         json.dump(result, file, indent=3)
+
+
+def set_up_experiment(file_path):
+    bn = BayesNet()
+    bn.load_from_bifxml(file_path)
+    reasoner = BNReasoner(bn)
+    return bn, reasoner
+
+
+def calculate_statistics(data):
+    return {
+        "mean": np.round(np.mean(data), ROUND_NUM),
+        "std": np.round(np.std(data), ROUND_NUM),
+        "max": np.round(np.max(data), ROUND_NUM),
+        "min": np.round(np.min(data), ROUND_NUM),
+        "range": np.round(np.max(data) - np.min(data), ROUND_NUM)
+    }
+
+
+def run_ordering_100(bn_size):
+    bn, reasoner = set_up_experiment(f"experiments/bifxml/bin_tree_{bn_size}.BIFXML")
+    min_deg_runtimes = perform_100_min_deg(bn, reasoner)
+    min_fill_runtimes = perform_100_min_fill(bn, reasoner)
+    min_deg_stats = calculate_statistics(min_deg_runtimes)
+    min_fill_stats = calculate_statistics(min_fill_runtimes)
+
+    print("Results for min-degree ordering:")
+    print(f"{json.dumps(min_deg_stats, indent=3)}")
+
+    print("Results for min-fill ordering: ")
+    print(f"{json.dumps(min_fill_stats, indent=3)}")
+
+
+def run_ordering_100_tree_3():
+    run_ordering_100(3)
+
+
+def run_ordering_100_tree_7():
+    run_ordering_100(7)
+
+
+def run_ordering_100_tree_15():
+    run_ordering_100(15)
+
+
+def run_ordering_100_tree_31():
+    run_ordering_100(31)
+
+
+if __name__ == '__main__':
+    globals()[sys.argv[1]]()

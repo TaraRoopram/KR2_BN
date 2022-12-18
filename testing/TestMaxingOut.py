@@ -1,3 +1,4 @@
+import os
 import unittest
 import pandas as pd
 
@@ -9,7 +10,7 @@ from BayesNet import BayesNet
 class TestMaxingOutExample1(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/lecture_example.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/lecture_example.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex1_max_out_single_var_1(self):

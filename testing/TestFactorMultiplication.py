@@ -1,3 +1,4 @@
+import os
 import unittest
 import networkx as nx
 import pandas as pd
@@ -11,7 +12,7 @@ import BNReasonerUtil as util
 class TestFactorMultiplicationExample2(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/lecture_example2.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/lecture_example2.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex2_multiply_factors_empty(self):
@@ -35,7 +36,7 @@ class TestFactorMultiplicationExample2(unittest.TestCase):
 class TestFactorMultiplicationExample3(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/test_example_3.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/test_example_3.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex3_multiply_factors_small(self):

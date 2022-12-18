@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from BNReasoner import BNReasoner
@@ -7,7 +8,7 @@ from BayesNet import BayesNet
 class TestIndependenceLectureExample1(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/test_example_4.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/test_example_4.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_lecture_example_1_indep_1(self):
@@ -59,10 +60,10 @@ class TestIndependenceLectureExample1(unittest.TestCase):
         self.assertEqual(indep, True)
 
 
-class TestIndependenceLectureExample2(unittest.TestCase):
+class TestIndependenceLectureExample7(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/test_example_7.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/test_example_7.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_lecture_example_2_indep_1(self):

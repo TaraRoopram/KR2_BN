@@ -1,4 +1,5 @@
 import unittest
+import os
 
 from BNReasoner import BNReasoner
 from BayesNet import BayesNet
@@ -8,7 +9,7 @@ import BNReasonerUtil as util
 class TestDSeparationExample3(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/test_example_3.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/test_example_4.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex3_dsep_1(self):
@@ -31,7 +32,7 @@ class TestDSeparationExample3(unittest.TestCase):
 class TestDSeparationLectureExample(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/test_example_4.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/test_example_4.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_lecture_example_dsep_1(self):
@@ -81,3 +82,7 @@ class TestDSeparationLectureExample(unittest.TestCase):
 
         dsep = self.reasoner.is_d_separated(x, y, z)
         self.assertEqual(dsep, True)
+
+
+if __name__ == '__main__':
+    unittest.main()

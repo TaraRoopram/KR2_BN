@@ -1,3 +1,4 @@
+import os
 import unittest
 import networkx as nx
 import pandas as pd
@@ -11,7 +12,7 @@ import BNReasonerUtil as util
 class TestNetworkPruningExample5(unittest.TestCase):
     def setUp(self):
         self.bn = BayesNet()
-        self.bn.load_from_bifxml("../bifxml/test_example_5.BIFXML")
+        self.bn.load_from_bifxml(f"{os.path.dirname(os.path.abspath(__file__))}/bifxml/test_example_5.BIFXML")
         self.reasoner = BNReasoner(self.bn)
 
     def test_ex2_network_pruning_multiple_e(self):

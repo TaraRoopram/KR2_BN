@@ -299,29 +299,29 @@ class BNReasoner:
         return final_result
 
 
-reasoner = BNReasoner("testing/bifxml/use_case.BIFXML")
-
-# for key in query_vars:
-# #     query_vars_dict[key] = self.marginal_distribution(key, {})
-# q_vars = ['I', "J"]
-# evid = {"O": True}
-
-# # all_vars = reasoner.bn.get_all_variables()
-# # variables_to_remove = [x for x in all_vars if x not in q_vars]
-
-
-# result = reasoner.MAP(q_vars, evid)
+# reasoner = BNReasoner("testing/bifxml/use_case.BIFXML")
+#
+# # for key in query_vars:
+# # #     query_vars_dict[key] = self.marginal_distribution(key, {})
+# # q_vars = ['I', "J"]
+# # evid = {"O": True}
+#
+# # # all_vars = reasoner.bn.get_all_variables()
+# # # variables_to_remove = [x for x in all_vars if x not in q_vars]
+#
+#
+# # result = reasoner.MAP(q_vars, evid)
+# # print(result)
+#
+#
+# q_vars = ['Overeating']
+# evid = {"Diabetes": True}
+# # evid = {"I": True, "O": False}
+#
+# # result = reasoner.MAP(q_vars, evid)
+# result = reasoner.MPE(evid)
+# print('result')
 # print(result)
-
-
-q_vars = ['Overeating']
-evid = {"Diabetes": True}
-# evid = {"I": True, "O": False}
-
-# result = reasoner.MAP(q_vars, evid)
-result = reasoner.MPE(evid)
-print('result')
-print(result)
 
 
 # reasoner = BNReasoner("testing/lecture_example.BIFXML")
