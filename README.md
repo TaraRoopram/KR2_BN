@@ -19,8 +19,8 @@ the tests in an IDE such as PyCharm.
 ## Reproducing the Experiments
 As shown in the paper, two experiments were conducted and their 
 results can be reproduced as follows. Please note that the results
-may vary per machine, but the general pattern should still be apparent
-after running the experiments.
+may vary per machine, but their general pattern should still be apparent 
+as presented in the paper.
 
 ### Experiment 1: Ordering Heuristics
 The test set consisted of binary tree shaped BNs of four different sizes.
