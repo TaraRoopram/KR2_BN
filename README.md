@@ -13,17 +13,17 @@ with the command:
 python -m unittest discover testing
 ```
 
-Alternatively, it is also possible to clone this repository and running
+Alternatively, it is also possible to clone this repository and run
 the tests in an IDE such as PyCharm.
 
 ## Reproducing the Experiments
 As shown in the paper, two experiments were conducted and their 
 results can be reproduced as follows. Please note that the results
-may vary per machine, but their general pattern should still be apparent 
-as presented in the paper.
+may vary per machine, but the general pattern as presented in the paper 
+should still be apparent.
 
 ### Experiment 1: Ordering Heuristics
-The test set consisted of binary tree shaped BNs of four different sizes.
+The test set consisted of four binary tree shaped BNs of different sizes.
 The following command can be run to reproduce the results for each
 BN size, respectively:
 ```commandline
@@ -44,10 +44,11 @@ python -m experiments.ExperimentSummingOut run_sum_out_100_tree_31
 ```
 
 ### Output
-After running any of the command outlined above, the runtime for each iteration of the experiment is printed. These are 
+After running any of the commands outlined above, the runtime for each 
+iteration of the experiment is printed. This is 
 computed sequentially for each algorithm involved in the experiment. 
-As an example, the format of the output is as follows, which is shortened
-for the sake of this example:
+As an example, the format of the output is as follows (shortened
+for the sake of this example):
 ```
 Running the min-degree ordering heuristic on a BN of size 7...
 Run 1 => 0.05739s
