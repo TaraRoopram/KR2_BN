@@ -186,7 +186,7 @@ class BNReasoner:
         for combination in bool_combinations:
             instanciation = util.create_instantiation(combination, result_vars)
             if "p" in instanciation:
-                print(instanciation['p'])
+                # print(instanciation['p'])
                 instanciation.pop('p')
             instanciation_series = pd.Series(instanciation)
             # Get compatable rows per original factor
@@ -259,7 +259,7 @@ class BNReasoner:
         return var_elim
 
     def MPE(self, evidence):
-        self.prune_network(q_vars, evidence)
+        self.prune_network([], evidence)
 
         factors = self.bn.get_all_cpts()
 
@@ -277,7 +277,7 @@ class BNReasoner:
         return result
 
     def MAP(self, query_vars: List[str], evidence: Dict[str, bool]):
-        self.prune_network(q_vars, evidence)
+        self.prune_network(query_vars, evidence)
         factors = self.bn.get_all_cpts()
         query_vars_dict = {}
         for var_name, df in factors.items():
