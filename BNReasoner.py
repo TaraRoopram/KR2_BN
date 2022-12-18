@@ -277,7 +277,7 @@ class BNReasoner:
         return result
 
     def MAP(self, query_vars: List[str], evidence: Dict[str, bool]):
-        self.prune_network(q_vars, evidence)
+        self.prune_network(query_vars, evidence)
         factors = self.bn.get_all_cpts()
         query_vars_dict = {}
         for var_name, df in factors.items():
